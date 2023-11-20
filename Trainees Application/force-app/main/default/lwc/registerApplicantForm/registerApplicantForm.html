@@ -1,0 +1,62 @@
+<template>
+  <lightning-card title="Register for Training" icon-name="standard:trainee">
+    <div style="margin-left: 6%" if:true={error}>
+      <lightning-badge label={error} style="color: red;"></lightning-badge>
+    </div>
+
+    <template if:true={traineeRecord}>
+      <div class="slds-form">
+        <div class="container-fluid">
+          <div class="form-group">
+
+            <lightning-input label="Enter Full Name" name="traineeName" required="required" type="text"
+              value={traineeRecord.Name} onchange={handleNameChange}></lightning-input>
+          </div>
+
+          <div class="form-group">
+            <lightning-input label="Enter Phone" name="traineePhone" type="number" value={traineeRecord.Phone}
+              onchange={handlePhoneChange}></lightning-input>
+          </div>
+
+          <div class="form-group">
+            <lightning-input label="Enter Email" name="traineeEmail" required="required" type="text"
+              value={traineeRecord.Email} onchange={handleEmailChange}></lightning-input>
+          </div>
+
+          <div class="form-group">
+            <lightning-input label="Enter Address" name="traineeAddress" type="text" value={traineeRecord.Address}
+              onchange={handleAddressChange}></lightning-input>
+
+          </div>
+
+          <div class="form-group">
+            <lightning-input label="Enter Educational Background" name="traineeEducational" type="text"
+                value={traineeRecord.Educational} onchange={handleEducationalChange} required="required"></lightning-input>
+            
+              <!-- <lightning-checkbox-group label="Select Educational Background" name="traineeEducational"
+                options={educationalOptions} value={traineeRecord.Educational}
+                onchange={handleEducationalChange} required="required"></lightning-checkbox-group> -->
+            
+
+          </div>
+
+          <div class="form-group">
+            <lightning-input label="Enter Certifications" name="traineeCertifications" type="text"
+              value={traineeRecord.Certifications} onchange={handleCertificationsChange}></lightning-input>
+          </div>
+
+          <div class="form-group">
+            <lightning-input label="Enter Skills" name="traineeSkills" type="text" value={traineeRecord.Skills}
+              onchange={handleSkillsChange}></lightning-input>
+          </div>
+
+        </div>
+
+        <br />
+
+        <lightning-button label="Submit" onclick={handleSave} variant="brand"></lightning-button>
+
+      </div>
+    </template>
+  </lightning-card>
+</template>
