@@ -10,16 +10,9 @@ import CERTIFICATIONS_FIELD from '@salesforce/schema/Trainee__c.Certifications__
 import SKILLS_FIELD from '@salesforce/schema/Trainee__c.Skills__c';
 
 
-// const EDUCATIONAL_OPTIONS = [
-//     { label: "High School", value: "High School" },
-//     { label: "Bachelor's Degree", value: "Bachelor's Degree" },
-//     { label: "Master's Degree", value: "Master's Degree" },
-//     { label: "Doctorate Degree", value: "Doctorate Degree" }
-// ];
-
-
 export default class RegistrationForm extends LightningElement {
     @track error;
+
     @track traineeRecord = {
         [NAME_FIELD.fieldApiName]: '',
         [PHONE_FIELD.fieldApiName]: '',
@@ -44,44 +37,7 @@ export default class RegistrationForm extends LightningElement {
 
     handleAddressChange(event) {
         this.traineeRecord[ADDRESS_FIELD.fieldApiName] = event.target.value;
-    }
-
-    /*
-    educationalOptions = EDUCATIONAL_OPTIONS;
-    handleEducationalChange(event) {
-        const selectedOptions = event.detail.value || [];
-        
-        // Ensure that the array is defined and not null
-        if (Array.isArray(selectedOptions)) {
-            this.traineeRecord[EDUCATIONAL_FIELD.fieldApiName] = selectedOptions;
-            
-            // Perform any other operations if needed
-            // For example, check if the array contains a specific value
-            // In handleEducationalChange()
-
-        if (selectedOptions && Array.isArray(selectedOptions)) {
-
-            // Check if Bachelor's Degree is selected
-            if (selectedOptions.indexOf('Bachelor\'s Degree') !== -1) {
-  
-                 // Show a toast message
-                const toastEvent = new ShowToastEvent({
-                    title: 'Bachelor\'s Selected',
-                    message: 'We see you selected Bachelor\'s Degree',
-                    variant: 'success'
-                });
-            this.dispatchEvent(toastEvent);
-  
-            }
-  
-        }
-  
-        } else {
-            // If the value is not an array, handle it accordingly
-            console.error('Selected options is not an array:', selectedOptions);
-        }
-    }*/
-    
+    }  
     
        
     handleEducationalChange(event) {
@@ -99,7 +55,7 @@ export default class RegistrationForm extends LightningElement {
     handleSave() {
         saveTrainee({ trainee: this.traineeRecord })
             .then(result => {
-                // Clear the user-entered values
+                // Clear the applicant-entered values
                 this.traineeRecord = {
                     [NAME_FIELD.fieldApiName]: '',
                     [PHONE_FIELD.fieldApiName]: '',
