@@ -1,4 +1,3 @@
-
 import { LightningElement, track } from 'lwc';
 import saveTrainee from '@salesforce/apex/registerController.saveRegister';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
@@ -84,10 +83,7 @@ export default class RegistrationForm extends LightningElement {
     }*/
     
     
-    
-    
-    
-    
+       
     handleEducationalChange(event) {
         this.traineeRecord[EDUCATIONAL_FIELD.fieldApiName] = event.detail.value;
     }
@@ -137,106 +133,3 @@ export default class RegistrationForm extends LightningElement {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-import { LightningElement, track } from 'lwc';
-
-// Importing Apex Class method
-import saveTrainee from '@salesforce/apex/registerController.saveRegister';
-
-// importing to show toast notifictions
-import {ShowToastEvent} from 'lightning/platformShowToastEvent';
-
-// importing Account fields
-import NAME_FIELD from '@salesforce/schema/Trainee__c.Name';
-import Phone_FIELD from '@salesforce/schema/Trainee__c.Phone__c';
-import Email_FIELD from '@salesforce/schema/Trainee__c.Email__c';
-import Educational_FIELD from '@salesforce/schema/Trainee__c.Educational_Background__c';
-import Address_FIELD from '@salesforce/schema/Trainee__c.Address__c';
-import Certifications_FIELD from '@salesforce/schema/Trainee__c.Certifications__c';
-import Skills_FIELD from '@salesforce/schema/Trainee__c.Skills__c';
-
-
-export default class RegistrationForm extends LightningElement {
-    @track error;
-
-    // this object have record information
-    @track traineeRecord = {
-        Name : NAME_FIELD,
-        Email : Email_FIELD,
-        Phone : Phone_FIELD,
-        Address : Address_FIELD,
-        Educational : Educational_FIELD,
-        Certifications : Certifications_FIELD,
-        Skills : Skills_FIELD
-    };
-
-
-    handleNameChange(event) {
-        this.traineeRecord.Name = event.target.value;
-        window.console.log('Name ==> '+this.traineeRecord.Name);
-    }
-
-    handlePhoneChange(event) {
-        this.traineeRecord.Phone = event.target.value;
-        window.console.log('Phone ==> '+this.traineeRecord.Phone);
-    }
-
-    handleEmailChange(event) {
-        this.traineeRecord.Email = event.target.value;
-        window.console.log('Email ==> '+this.traineeRecord.Email);
-    }
-
-    handleAddressChange(event) {
-        this.traineeRecord.Educational = event.target.value;
-        window.console.log('Educational ==> '+this.traineeRecord.Educational);
-    }
-
-    handleEducationalChange(event) {
-        this.traineeRecord.Address = event.target.value;
-        window.console.log('Address ==> '+this.traineeRecord.Address);
-    }
-
-    handleCertificationsChange(event) {
-        this.traineeRecord.Certifications = event.target.value;
-        window.console.log('Certifications ==> '+this.traineeRecord.Certifications);
-    }
-
-    handleSkillsChange(event) {
-        this.traineeRecord.Skills = event.target.value;
-        window.console.log('Skills ==> '+this.traineeRecord.Skills);
-    }
-
-
-
-    handleSave() {
-        saveTrainee({trainee: this.traineeRecord})
-        .then(result => {
-            // Clear the user enter values
-            this.traineeRecord = {};
-
-            window.console.log('result ===> '+result);
-            // Show success messsage
-            this.dispatchEvent(new ShowToastEvent({
-                title: 'Success!!',
-                message: 'Trainee Created Successfully!!',
-                variant: 'success'
-            }),);
-        })
-        .catch(error => {
-            this.error = error.message;
-        });
-    }
-}
-*/
