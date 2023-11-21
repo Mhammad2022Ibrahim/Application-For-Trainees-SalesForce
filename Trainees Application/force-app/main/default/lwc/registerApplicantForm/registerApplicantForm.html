@@ -1,56 +1,65 @@
 <template>
-  <lightning-card title="Register for Training" icon-name="standard:trainee">
+
+  <lightning-card title="Register for Training" icon-name="standard:applicant">
+
     <div style="margin-left: 6%" if:true={error}>
       <lightning-badge label={error} style="color: red;"></lightning-badge>
     </div>
 
-    <template if:true={traineeRecord}>
+    <template if:true={applicantRecord}>
+
       <div class="slds-form">
         <div class="container-fluid">
-          <div class="form-group">
 
-            <lightning-input label="Enter Full Name" name="traineeName" required="required" type="text"
-              value={traineeRecord.Name} onchange={handleNameChange}></lightning-input>
+          <div class="form-group">
+            <lightning-input label="Enter Full Name" name="applicantName" required type="text"
+              value={applicantRecord.Name} onchange={handleNameChange}></lightning-input>
           </div>
 
           <div class="form-group">
-            <lightning-input label="Enter Phone" name="traineePhone" type="number" value={traineeRecord.Phone}
+            <lightning-input label="Enter Phone" name="applicantPhone" type="phone" value={applicantRecord.Phone__c}
               onchange={handlePhoneChange}></lightning-input>
           </div>
-
+          
           <div class="form-group">
-            <lightning-input label="Enter Email" name="traineeEmail" required="required" type="text"
-              value={traineeRecord.Email} onchange={handleEmailChange}></lightning-input>
+            <lightning-input label="Enter Email" name="applicantEmail" required type="email"
+                value={applicantRecord.Email__c} onchange={handleEmailChange}></lightning-input>
           </div>
 
           <div class="form-group">
-            <lightning-input label="Enter Address" name="traineeAddress" type="text" value={traineeRecord.Address}
+            <lightning-input label="Enter Address" name="applicantAddress" type="text" value={applicantRecord.Address__c}
               onchange={handleAddressChange}></lightning-input>
-
           </div>
 
           <div class="form-group">
-            <lightning-input label="Enter Educational Background" name="traineeEducational" type="text"
-                value={traineeRecord.Educational} onchange={handleEducationalChange} required="required"></lightning-input>       
+            <div class="slds-form-element">
+                <label>Educational Background</label>
+                <div class="slds-form-element__control">
+                    <lightning-combobox variant="label-hidden" label="Education" name="applicantEducation"
+                        value={applicantRecord.Educational_Background__c} options={educationOptions} onchange={handleEducationChange}
+                        required></lightning-combobox>
+                </div>
+            </div>
+        </div>
+
+          <div class="form-group">
+            <lightning-input label="Enter Certifications" name="applicantCertifications" type="text"
+              value={applicantRecord.Certifications__c} onchange={handleCertificationsChange}></lightning-input>
           </div>
 
           <div class="form-group">
-            <lightning-input label="Enter Certifications" name="traineeCertifications" type="text"
-              value={traineeRecord.Certifications} onchange={handleCertificationsChange}></lightning-input>
-          </div>
-
-          <div class="form-group">
-            <lightning-input label="Enter Skills" name="traineeSkills" type="text" value={traineeRecord.Skills}
+            <lightning-input label="Enter Skills" name="applicantSkills" type="text" value={applicantRecord.Skills__c}
               onchange={handleSkillsChange}></lightning-input>
           </div>
-
         </div>
 
         <br />
 
         <lightning-button label="Submit" onclick={handleSave} variant="brand"></lightning-button>
-
+        
       </div>
+
     </template>
+
   </lightning-card>
 </template>

@@ -1,86 +1,108 @@
 import { LightningElement, track } from 'lwc';
-import saveTrainee from '@salesforce/apex/registerController.saveRegister';
+import saveApplicant from '@salesforce/apex/registerController.saveRegister';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
-import NAME_FIELD from '@salesforce/schema/Trainee__c.Name';
-import PHONE_FIELD from '@salesforce/schema/Trainee__c.Phone__c';
-import EMAIL_FIELD from '@salesforce/schema/Trainee__c.Email__c';
-import ADDRESS_FIELD from '@salesforce/schema/Trainee__c.Address__c';
-import EDUCATIONAL_FIELD from '@salesforce/schema/Trainee__c.Educational_Background__c';
-import CERTIFICATIONS_FIELD from '@salesforce/schema/Trainee__c.Certifications__c';
-import SKILLS_FIELD from '@salesforce/schema/Trainee__c.Skills__c';
+import name from '@salesforce/schema/Applicant_Profile__c.Name';
+import phone from '@salesforce/schema/Applicant_Profile__c.Phone__c';
+import email from '@salesforce/schema/Applicant_Profile__c.Email__c';
+import address from '@salesforce/schema/Applicant_Profile__c.Address__c';
+import education from '@salesforce/schema/Applicant_Profile__c.Educational_Background__c';
+import certificate from '@salesforce/schema/Applicant_Profile__c.Certifications__c';
+import skills from '@salesforce/schema/Applicant_Profile__c.Skills__c';
 
 
 export default class RegistrationForm extends LightningElement {
     @track error;
 
-    @track traineeRecord = {
-        [NAME_FIELD.fieldApiName]: '',
-        [PHONE_FIELD.fieldApiName]: '',
-        [EMAIL_FIELD.fieldApiName]: '',
-        [ADDRESS_FIELD.fieldApiName]: '',
-        [EDUCATIONAL_FIELD.fieldApiName]: '',
-        [CERTIFICATIONS_FIELD.fieldApiName]: '',
-        [SKILLS_FIELD.fieldApiName]: ''
+    @track applicantRecord = {
+        [name.fieldApiName] : '',
+        [phone.fieldApiName]: '',
+        [email.fieldApiName]: '',
+        [address.fieldApiName]: '',
+        [education.fieldApiName]: '',
+        [certificate.fieldApiName]: '',
+        [skills.fieldApiName]: ''
     };
 
+    // Define your education options
+    educationOptions = [
+        { label: 'High School', value: 'High School' },
+        { label: "Bachelor's Degree", value: "Bachelor's Degree" },
+        { label: "Master's Degree", value: "Master's Degree" },
+        { label: 'Doctorate Degree', value: 'Doctorate Degree' }
+    ];
+
     handleNameChange(event) {
-        this.traineeRecord[NAME_FIELD.fieldApiName] = event.target.value;
+        this.applicantRecord[name.fieldApiName] = event.target.value;
     }
 
     handlePhoneChange(event) {
-        this.traineeRecord[PHONE_FIELD.fieldApiName] = event.target.value;
+        this.applicantRecord[phone.fieldApiName] = event.target.value;
     }
 
     handleEmailChange(event) {
-        this.traineeRecord[EMAIL_FIELD.fieldApiName] = event.target.value;
+        this.applicantRecord[email.fieldApiName] = event.target.value;
     }
 
     handleAddressChange(event) {
-        this.traineeRecord[ADDRESS_FIELD.fieldApiName] = event.target.value;
+        this.applicantRecord[address.fieldApiName] = event.target.value;
     }  
     
-       
-    handleEducationalChange(event) {
-        this.traineeRecord[EDUCATIONAL_FIELD.fieldApiName] = event.detail.value;
+    
+    handleEducationChange(event) {
+        this.applicantRecord[education.fieldApiName] = event.detail.value;
     }
     
+    
     handleCertificationsChange(event) {
-        this.traineeRecord[CERTIFICATIONS_FIELD.fieldApiName] = event.target.value;
+        this.applicantRecord[certificate.fieldApiName] = event.target.value;
     }
 
     handleSkillsChange(event) {
-        this.traineeRecord[SKILLS_FIELD.fieldApiName] = event.target.value;
+        this.applicantRecord[skills.fieldApiName] = event.target.value;
     }
 
+
     handleSave() {
-        saveTrainee({ trainee: this.traineeRecord })
+        // Check if required fields are filled
+        if (!this.applicantRecord[name.fieldApiName] ||
+            !this.applicantRecord[email.fieldApiName]||
+            !this.applicantRecord[education.fieldApiName]) {
+                this.error = 'Please fill in all required fields.';
+                return;
+            }
+
+        saveApplicant({ applicant: this.applicantRecord })
             .then(result => {
-                // Clear the applicant-entered values
-                this.traineeRecord = {
-                    [NAME_FIELD.fieldApiName]: '',
-                    [PHONE_FIELD.fieldApiName]: '',
-                    [EMAIL_FIELD.fieldApiName]: '',
-                    [ADDRESS_FIELD.fieldApiName]: '',
-                    [EDUCATIONAL_FIELD.fieldApiName]: '',
-                    [CERTIFICATIONS_FIELD.fieldApiName]: '',
-                    [SKILLS_FIELD.fieldApiName]: ''
+                // Clear all fields in traineeRecord
+                this.applicantRecord = {
+                    [name.fieldApiName] : '',
+                    [phone.fieldApiName]: '',
+                    [email.fieldApiName]: '',
+                    [address.fieldApiName]: '',
+                    [education.fieldApiName]: '',
+                    [certificate.fieldApiName]: '',
+                    [skills.fieldApiName]: ''
                 };
+
+                // Reset error
+                this.error = '';
+
+                window.console.log('result ===> ' + JSON.stringify(result));
     
-                window.console.log('result ===> ' + result);
                 // Show success message
                 this.dispatchEvent(
                     new ShowToastEvent({
                         title: 'Success!!',
-                        message: 'Trainee Created Successfully!!',
+                        message: 'Applicant Profile Created Successfully!!',
                         variant: 'success'
                     })
                 );
             })
             .catch(error => {
                 this.error = error.message;
+                console.error('Error saving trainee:', error);
             });
-    }
-    
+    }  
     
     
     
