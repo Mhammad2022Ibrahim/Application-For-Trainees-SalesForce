@@ -100,7 +100,7 @@ export default class RegistrationForm extends LightningElement {
             })
             .catch(error => {
                 this.error = error.message;
-                console.error('Error saving trainee:', error);
+                console.error('Error saving applicant:', error);
             });
     }  
     
