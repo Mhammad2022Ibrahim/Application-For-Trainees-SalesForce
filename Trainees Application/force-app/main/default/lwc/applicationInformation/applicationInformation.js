@@ -32,6 +32,7 @@ export default class ApplicationInformation extends LightningElement {
             });
     }
 
+
     handleSubmit(event) {
         event.preventDefault();
         const fields = event.detail.fields;

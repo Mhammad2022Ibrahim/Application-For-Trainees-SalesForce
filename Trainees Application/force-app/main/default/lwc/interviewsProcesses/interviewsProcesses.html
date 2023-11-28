@@ -7,7 +7,7 @@
                 <thead>
                     <tr>
                         <td class="title" style="text-align:center;font-weight:bold">Name</td>
-                        <td class="title" style="text-align:center;font-weight:bold">Date Interview</td>
+                        <td class="title" style="text-align:center;font-weight:bold">Status Interview</td>
                     </tr>
                 </thead>
 
@@ -16,7 +16,7 @@
                         <template for:each={acceptedInterviewApplicants} for:item="applicant">
                             <tr key={applicant.Id} onclick={handleApplicantClick} data-id={applicant.Id} class="applicant-item">
                                 <td class="slds-col" style="color:blue;text-align:center">{applicant.Name}</td>
-                                <td class="slds-col" style="color:blue;text-align:center">{applicant.Date_Interview__c}</td>
+                                <td class="slds-col" style="color:blue;text-align:center">{applicant.Status__c}</td>
                             </tr>
                         </template>
                     </template>
@@ -26,11 +26,11 @@
 
             <div class="slds-align_absolute-center">
                 <lightning-layout>
-                    <lightning-layout-item size="9">
-                        <div if:true={showInterviewDetails} class="applicant-details-table slds-size_9-of-12">
+                    <lightning-layout-item size="11">
+                        <div if:true={showInterviewDetails} class="interview-details-table slds-size_11-of-12">
                             <lightning-record-edit-form object-api-name="Interview__c"
                                 record-id={showInterviewDetails.Id} onsuccess={handleSuccess} onsubmit={handleSubmit}
-                                onerror={handleError}>
+                                onerror={handleError} >
     
                                 <p><strong>Details Interview</strong></p>
     
@@ -39,6 +39,11 @@
                                         <tr>
                                             <td>
                                                 <lightning-input-field field-name="Name"></lightning-input-field>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <lightning-input-field field-name="Interview_Date__c"></lightning-input-field>
                                             </td>
                                         </tr>
                                         <tr>
@@ -55,12 +60,7 @@
                                             <td>
                                                 <lightning-input-field field-name="Interviewer__c"></lightning-input-field>
                                             </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <lightning-input-field field-name="Interview_Date__c"></lightning-input-field>
-                                            </td>
-                                        </tr>
+                                        </tr>                                        
                                     </tbody>
                                 </table>
     

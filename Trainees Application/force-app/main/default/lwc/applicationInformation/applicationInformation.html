@@ -14,8 +14,8 @@
 
             <div class="slds-align_absolute-center">
             <lightning-layout>
-                <lightning-layout-item size="9">
-                    <div if:true={selectedApplicant} class="applicant-details-table slds-size_9-of-12">
+                <lightning-layout-item size="11">
+                    <div if:true={selectedApplicant} class="applicant-details-table slds-size_11-of-12">
                         <lightning-record-edit-form object-api-name="Applicant_Profile__c"
                             record-id={selectedApplicant.Id} onsuccess={handleSuccess} onsubmit={handleSubmit}
                             onerror={handleError}>
@@ -67,12 +67,6 @@
                                     <tr>
                                         <td>
                                             <lightning-input-field field-name="Status__c"></lightning-input-field>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <lightning-input-field
-                                                field-name="Date_Interview__c"></lightning-input-field>
                                         </td>
                                     </tr>
 
