@@ -1,0 +1,73 @@
+<!-- editApplicantProfile.html -->
+<template>
+    <div class="applicant-details-table slds-size_11-of-12">
+        <lightning-record-edit-form if:true={applicantData} object-api-name="Applicant_Profile__c"
+        record-id={recordId} onsuccess={handleSuccess} onsubmit={handleSubmit} onerror={handleError}>
+
+            <p><strong>Update Application Form. </strong></p>
+
+            <table class="slds-table slds-table_bordered slds-max-medium-table_stacked-horizontal">
+                <tbody>
+                    <tr>
+                        <td>
+                            <lightning-input-field field-name="Name" value={applicantData.Name}></lightning-input-field>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <lightning-input-field field-name="Email__c"
+                                value={applicantData.Email__c}></lightning-input-field>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <lightning-input-field field-name="Phone__c"
+                                value={applicantData.Phone__c}></lightning-input-field>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <lightning-input-field field-name="Address__c"
+                                value={applicantData.Address__c}></lightning-input-field>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <lightning-input-field field-name="Educational_Background__c"
+                                value={applicantData.Educational_Background__c}></lightning-input-field>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <lightning-input-field field-name="Certifications__c"
+                                value={applicantData.Certifications__c}></lightning-input-field>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <lightning-input-field field-name="Skills__c"
+                                value={applicantData.Skills__c}></lightning-input-field>
+                        </td>
+                    </tr>
+
+                    <!-- Interview Status -->
+                    <th><strong>Interview Information</strong></th>
+                    <tr>
+                        <td>
+                            <lightning-input-field field-name="Status__c"
+                                value={applicantData.Status__c}></lightning-input-field>
+                        </td>
+                    </tr>
+
+                </tbody>
+                <div class="slds-m-top_medium">
+                    <lightning-button variant="brand" type="submit" label="Save"></lightning-button>
+                </div>
+            </table>
+
+
+
+        </lightning-record-edit-form>
+    </div>
+
+</template>

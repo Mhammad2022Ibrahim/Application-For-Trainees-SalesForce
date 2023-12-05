@@ -1,13 +1,12 @@
-import { LightningElement, wire, track } from 'lwc';
+import { LightningElement, wire, track, api } from 'lwc';
 import getApplicants from '@salesforce/apex/ApplicationController.getApplicants';
 import getApplicantDetails from '@salesforce/apex/ApplicationController.getApplicantDetails';
-import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import { refreshApex } from '@salesforce/apex';
 
 export default class ApplicationInformation extends LightningElement {
     @track applicants;
-    @track selectedApplicant;
-    _wiredApplicants;
+    @api selectedApplicant;
+    @api _wiredApplicants;
 
     @wire(getApplicants)
     wiredApplicants(result) {
@@ -20,52 +19,30 @@ export default class ApplicationInformation extends LightningElement {
         }
     }
 
+
     handleApplicantClick(event) {
         const applicantId = event.currentTarget.dataset.id;
 
         getApplicantDetails({ applicantId })
             .then(result => {
                 this.selectedApplicant = result;
+
+                const editApplicantProfile = this.template.querySelector('c-edit-applicant-profile');
+                if (editApplicantProfile) {
+                    editApplicantProfile.applicantData = this.selectedApplicant;
+                }
             })
             .catch(error => {
                 console.error('Error fetching applicant details:', error);
             });
     }
 
-
-    handleSubmit(event) {
-        event.preventDefault();
-        const fields = event.detail.fields;
-
-        this.template.querySelector('lightning-record-edit-form').submit(fields);
+    handleApplicantUpdated(event) {
+        refreshApex(this._wiredApplicants);
+        
     }
 
 
-
-    handleSuccess(event) {
-        this.dispatchEvent(
-            new ShowToastEvent({
-                title: 'Success',
-                message: 'Record updated successfully',
-                variant: 'success',
-            })
-        );
-
-        // Refresh the list of applicants to reflect the changes
-        return refreshApex(this._wiredApplicants);
-    }
-
-
-    handleError(event) {
-        this.dispatchEvent(
-            new ShowToastEvent({
-                title: 'Error',
-                message: 'Error updating record',
-                variant: 'error',
-            })
-        );
-    }
 }
-
 
 

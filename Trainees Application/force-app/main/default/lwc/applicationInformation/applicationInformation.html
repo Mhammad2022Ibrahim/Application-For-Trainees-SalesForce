@@ -1,91 +1,41 @@
+<!-- applicationInformation.html -->
 <template>
-    <div>
-        <lightning-card title="Application Information" icon-name="standard:applicant">
+    <!-- Display a list of applicants in a table -->
+    <table class="slds-table slds-table_cell-buffer slds-table_bordered"
+        aria-label="Example table of Opportunities with a single column">
+        <thead>
+            <tr class="slds-line-height_reset">
+                <th class="" scope="col">
+                    <div class="slds-truncate" title="Name">Name</div>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Iterate through the list of applicants and display each in a table row -->
+            <template for:each={applicants} for:item="applicant">
+                <tr key={applicant.Id} class="slds-hint-parent" onclick={handleApplicantClick} data-id={applicant.Id}>
+                    <td data-label="Name">
+                        <div class="slds-truncate" title={applicant.Name}>{applicant.Name}</div>
+                    </td>
+                </tr>
+            </template>
 
-            <!-- Display a list of applicants -->
-            <ul class="applicant-list">
-                <template for:each={applicants} for:item="applicant">
-                    <li key={applicant.Id} onclick={handleApplicantClick} data-id={applicant.Id} class="applicant-item">
-                        {applicant.Name}
-                    </li>
+
+
+        </tbody>
+    </table>
+
+    <!-- Open specific form when an applicant row is clicked -->
+    <div class="slds-float_right">
+        <lightning-layout>
+            <lightning-layout-item size="11">
+                <template if:true={selectedApplicant}>
+                    <!-- Pass the selectedApplicant data to the edit-applicant-profile component -->
+                    <c-edit-applicant-profile record-id={selectedApplicant.Id} applicantdata={selectedApplicant}
+                    onapplicantupdated={handleApplicantUpdated}></c-edit-applicant-profile>
                 </template>
-            </ul>
-
-
-            <div class="slds-align_absolute-center">
-            <lightning-layout>
-                <lightning-layout-item size="11">
-                    <div if:true={selectedApplicant} class="applicant-details-table slds-size_11-of-12">
-                        <lightning-record-edit-form object-api-name="Applicant_Profile__c"
-                            record-id={selectedApplicant.Id} onsuccess={handleSuccess} onsubmit={handleSubmit}
-                            onerror={handleError}>
-
-                            <p><strong>Update Application Form. </strong></p>
-
-                            <table class="slds-table slds-table_bordered slds-max-medium-table_stacked-horizontal">
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            <lightning-input-field field-name="Name"></lightning-input-field>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <lightning-input-field field-name="Email__c"></lightning-input-field>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <lightning-input-field field-name="Phone__c"></lightning-input-field>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <lightning-input-field field-name="Address__c"></lightning-input-field>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <lightning-input-field
-                                                field-name="Educational_Background__c"></lightning-input-field>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <lightning-input-field
-                                                field-name="Certifications__c"></lightning-input-field>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <lightning-input-field field-name="Skills__c"></lightning-input-field>
-                                        </td>
-                                    </tr>
-
-                                    <!-- Interview Status and Interview Date  -->
-                                    <th><strong>Interview Information</strong></th>
-                                    <tr>
-                                        <td>
-                                            <lightning-input-field field-name="Status__c"></lightning-input-field>
-                                        </td>
-                                    </tr>
-
-                                </tbody>
-                            </table>
-
-                            <div class="slds-m-top_medium">
-                                <lightning-button variant="brand" type="submit" label="Save"></lightning-button>
-                            </div>
-
-                        </lightning-record-edit-form>
-                    </div>
-                </lightning-layout-item>
-
-            </lightning-layout>
-            </div>
-
-        </lightning-card>
-
-        
+            </lightning-layout-item>
+        </lightning-layout>
     </div>
+
 </template>
