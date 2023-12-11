@@ -1,41 +1,31 @@
 <!-- applicationInformation.html -->
 <template>
-    <!-- Display a list of applicants in a table -->
-    <table class="slds-table slds-table_cell-buffer slds-table_bordered"
-        aria-label="Example table of Opportunities with a single column">
-        <thead>
-            <tr class="slds-line-height_reset">
-                <th class="" scope="col">
-                    <div class="slds-truncate" title="Name">Name</div>
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            <!-- Iterate through the list of applicants and display each in a table row -->
+    <!-- Vertical Tabs for Applicants -->
+    <h2 class="title">LIST APPLICANTS</h2>
+
+    <div class="slds-vertical-tabs">
+        <ul class="slds-vertical-tabs__nav" role="tablist" aria-orientation="vertical">
+            <!-- Iterate through the list of applicants for vertical tabs -->
             <template for:each={applicants} for:item="applicant">
-                <tr key={applicant.Id} class="slds-hint-parent" onclick={handleApplicantClick} data-id={applicant.Id}>
-                    <td data-label="Name">
-                        <div class="slds-truncate" title={applicant.Name}>{applicant.Name}</div>
-                    </td>
-                </tr>
+                <!-- <li key={applicant.Id} class="slds-vertical-tabs__nav-item slds-is-active" role="presentation"
+                    onclick={handleApplicantClick} data-id={applicant.Id}>
+                    {applicant.Name}
+                </li> -->
+                <li key={applicant.Id} class="slds-vertical-tabs__nav-item slds-is-active">
+                    <a href="#" aria-controls="home" role="tab" data-toggle="tab"
+                     onclick={handleApplicantClick} data-id={applicant.Id}>{applicant.Name}</a>
+                </li>
             </template>
-
-
-
-        </tbody>
-    </table>
-
-    <!-- Open specific form when an applicant row is clicked -->
-    <div class="slds-float_right">
-        <lightning-layout>
-            <lightning-layout-item size="11">
-                <template if:true={selectedApplicant}>
-                    <!-- Pass the selectedApplicant data to the edit-applicant-profile component -->
+        </ul>
+        <div class="slds-vertical-tabs__content slds-show">
+            <!-- Display content for the selected applicant -->
+            <template if:true={selectedApplicant}>
+                <div role="tabpanel" class="slds-vertical-tabs__content slds-show">
                     <c-edit-applicant-profile record-id={selectedApplicant.Id} applicantdata={selectedApplicant}
-                    onapplicantupdated={handleApplicantUpdated}></c-edit-applicant-profile>
-                </template>
-            </lightning-layout-item>
-        </lightning-layout>
+                        onapplicantupdated={handleApplicantUpdated}>
+                    </c-edit-applicant-profile>
+                </div>
+            </template>
+        </div>
     </div>
-
 </template>

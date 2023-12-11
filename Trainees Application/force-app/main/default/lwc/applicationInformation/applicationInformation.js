@@ -8,6 +8,7 @@ export default class ApplicationInformation extends LightningElement {
     @api selectedApplicant;
     @api _wiredApplicants;
 
+
     @wire(getApplicants)
     wiredApplicants(result) {
         this._wiredApplicants = result;
@@ -42,6 +43,13 @@ export default class ApplicationInformation extends LightningElement {
         
     }
 
+    deactivateTabs() {
+        // Remove 'active' class from all tabs and contents
+        const tabItems = this.template.querySelectorAll('.slds-vertical-tabs__nav-item');
+        const tabContent = this.template.querySelectorAll('.slds-vertical-tabs__content');
+        tabItems.forEach(tab => tab.classList.remove('active'));
+        tabContent.forEach(content => content.classList.remove('active'));
+    }
 
 }
 

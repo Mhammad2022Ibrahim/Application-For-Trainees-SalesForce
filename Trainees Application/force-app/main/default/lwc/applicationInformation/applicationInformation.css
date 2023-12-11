@@ -1,30 +1,58 @@
-.applicant-list {
-    list-style-type: none;
-    padding: 0;
-}
-
-.applicant-item {
-    cursor: pointer;
-    padding: 10px;
-    margin: 5px 0;
-    background-color: #f0f0f0;
-    border-radius: 5px;
-    transition: background-color 0.3s;
-}
-
-.applicant-item:hover {
-    background-color: #997171;
-}
-
-.applicant-details {
-    margin-top: 20px;
-}
-
-.applicant-details p {
-    margin: 5px 0;
-}
-
-.applicant-details strong {
+.title{
+    font-size: 16px;
+    line-height: 2.5;
     font-weight: bold;
-    margin-right: 5px;
+    position: relative;
+    background-size: auto;
+    background-color: #9cd4db;
+    color: #fff;
+}
+
+/* Add hover effect for better user interaction */
+.slds-vertical-tabs__nav li a:hover,
+.slds-vertical-tabs__nav li a:focus {
+    background: #7fcbdc;
+    color: #fff;
+    border: none;
+}
+
+
+/* Improve the content styling */
+.slds-vertical-tabs .slds-vertical-tabs__content.slds-show {
+    background: #f5f5f5;
+    padding: 20px;
+}
+
+/* Add a subtle box-shadow for a modern look */
+.slds-vertical-tabs__nav li a,
+.slds-vertical-tabs .slds-vertical-tabs__content.slds-show {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Adjust font size and line height for better readability */
+.slds-vertical-tabs__nav li a,
+.slds-vertical-tabs .slds-vertical-tabs__content.slds-show {
+    font-size: 16px;
+    line-height: 2.5;
+}
+
+/* Update tab indicator style */
+.slds-vertical-tabs__nav li a:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 5px;
+    height: 100%;
+    /* background: #6f2aab; */
+}
+
+/* Update active tab style */
+.slds-vertical-tabs__nav li.slds-vertical-tabs__nav-item.slds-is-active a {
+    position: relative;
+}
+
+/* Update content padding for consistency */
+.slds-vertical-tabs .slds-vertical-tabs__content.slds-show {
+    padding: 20px;
 }

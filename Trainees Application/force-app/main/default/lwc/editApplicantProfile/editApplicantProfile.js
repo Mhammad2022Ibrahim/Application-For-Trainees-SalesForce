@@ -5,7 +5,7 @@ export default class EditApplicantProfile extends LightningElement {
 
     @api applicantData;
     @api recordId;
-
+    
     handleSubmit(event) {
         event.preventDefault();
         const fields = event.detail.fields;
