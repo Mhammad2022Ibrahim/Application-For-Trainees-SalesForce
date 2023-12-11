@@ -65,6 +65,10 @@ export default class InterviewsProcesses extends LightningElement {
         );
     }
 
+    handleCancel() {
+        this.showInterviewDetails = null; // Reset to close the form
+    }
+
 
 }
 

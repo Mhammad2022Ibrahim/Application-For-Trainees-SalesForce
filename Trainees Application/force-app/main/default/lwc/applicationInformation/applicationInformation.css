@@ -1,11 +1,12 @@
 .title{
-    font-size: 16px;
+    font-size: 18px;
     line-height: 2.5;
     font-weight: bold;
     position: relative;
     background-size: auto;
     background-color: #9cd4db;
     color: #fff;
+    padding-left: 2%;
 }
 
 /* Add hover effect for better user interaction */
@@ -32,7 +33,7 @@
 /* Adjust font size and line height for better readability */
 .slds-vertical-tabs__nav li a,
 .slds-vertical-tabs .slds-vertical-tabs__content.slds-show {
-    font-size: 16px;
+    font-size: 12px;
     line-height: 2.5;
 }
 
