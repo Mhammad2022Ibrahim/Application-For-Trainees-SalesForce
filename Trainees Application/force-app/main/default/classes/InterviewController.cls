@@ -17,6 +17,13 @@ public with sharing class InterviewController {
         }
     }
 
+
+    @AuraEnabled(cacheable=true)
+    public static List<Feedback__c> getFeedbackInterview() {
+       return [SELECT Id, Feedback_Text__c, Applicant__r.Name, Interviewer__r.Name 
+               FROM Feedback__c];
+    }
+
 }
 
 

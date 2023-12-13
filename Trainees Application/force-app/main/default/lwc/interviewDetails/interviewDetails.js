@@ -1,16 +1,17 @@
-import { LightningElement, api } from 'lwc';
+import { LightningElement, api,  } from 'lwc';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 
-export default class EditApplicantProfile extends LightningElement {
-
-    @api applicantData;
+export default class InterviewDetails extends LightningElement {
+    @api interviewData;
     @api recordId;
-    
+
+
     handleSubmit(event) {
         event.preventDefault();
         const fields = event.detail.fields;
 
         this.template.querySelector('lightning-record-edit-form').submit(fields);
+
     }
 
 
@@ -18,16 +19,12 @@ export default class EditApplicantProfile extends LightningElement {
         this.dispatchEvent(
             new ShowToastEvent({
                 title: 'Success',
-                message: 'Record updated successfully',
+                message: 'Interview updated successfully',
                 variant: 'success',
             })
         );
-        // Emit a custom event upon successful record update
-        const successEvent = new CustomEvent('applicantupdated');
-        this.dispatchEvent(successEvent);
 
     }
-
 
 
     handleError(event) {
@@ -41,10 +38,8 @@ export default class EditApplicantProfile extends LightningElement {
     }
 
     handleCancel() {
-        this.applicantData = null; // Reset to close the form
+        this.interviewData = null; // Reset data
     }
 
+
 }
-
-
-

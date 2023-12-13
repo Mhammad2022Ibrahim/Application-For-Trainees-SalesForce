@@ -7,16 +7,13 @@
         <ul class="slds-vertical-tabs__nav" role="tablist" aria-orientation="vertical">
             <!-- Iterate through the list of applicants for vertical tabs -->
             <template for:each={applicants} for:item="applicant">
-                <!-- <li key={applicant.Id} class="slds-vertical-tabs__nav-item slds-is-active" role="presentation"
-                    onclick={handleApplicantClick} data-id={applicant.Id}>
-                    {applicant.Name}
-                </li> -->
                 <li key={applicant.Id} class="slds-vertical-tabs__nav-item slds-is-active">
                     <a href="#" aria-controls="home" role="tab" data-toggle="tab"
                      onclick={handleApplicantClick} data-id={applicant.Id}>{applicant.Name}</a>
                 </li>
             </template>
         </ul>
+
         <div class="slds-vertical-tabs__content slds-show">
             <!-- Display content for the selected applicant -->
             <template if:true={selectedApplicant}>
@@ -27,5 +24,6 @@
                 </div>
             </template>
         </div>
+        
     </div>
 </template>

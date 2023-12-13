@@ -1,0 +1,41 @@
+<!-- feedback.html -->
+<template>
+    <div class="feedback-details-table slds-size_11-of-12">
+        <lightning-record-edit-form object-api-name="Feedback__c"
+            onsuccess={handleSuccess} onsubmit={handleSubmit} onerror={handleError}>
+
+            <p><strong>Interview Feedback</strong></p>
+
+            <table class="slds-table slds-table_bordered slds-max-medium-table_stacked-horizontal">
+                <tbody>
+                    <tr>
+                        <td>
+                            <lightning-input-field field-name="Name" ></lightning-input-field>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <lightning-input-field field-name="Feedback_Text__c" ></lightning-input-field>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <lightning-input-field field-name="Interviewer__c" ></lightning-input-field>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <lightning-input-field field-name="Applicant__c" ></lightning-input-field>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="slds-m-top_medium">
+                <lightning-button type="reset" label="Reset" ></lightning-button>
+                <lightning-button variant="brand" type="submit" label="Save"></lightning-button>
+            </div>
+
+        </lightning-record-edit-form>
+    </div>
+</template>

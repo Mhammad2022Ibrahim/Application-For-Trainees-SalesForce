@@ -1,12 +1,18 @@
+// interviewsProcesses.js
 import { LightningElement, wire, track } from 'lwc';
 import getAcceptedInterviewApplicants from '@salesforce/apex/InterviewController.getAcceptedInterviewApplicants';
 import getInterviewDetails from '@salesforce/apex/InterviewController.getInterviewDetails';
-import { ShowToastEvent } from 'lightning/platformShowToastEvent';
+import getFeedbackInterview from '@salesforce/apex/InterviewController.getFeedbackInterview';
+import { refreshApex } from '@salesforce/apex';
 
 export default class InterviewsProcesses extends LightningElement {
     @track acceptedInterviewApplicants;
 
     @track showInterviewDetails;
+
+    @track interviewFeedback;
+
+    @track showFeedbackForm = false;
 
     @wire(getAcceptedInterviewApplicants)
 
@@ -19,6 +25,17 @@ export default class InterviewsProcesses extends LightningElement {
         }
     }
 
+    @wire(getFeedbackInterview)
+    wiredFeedbackInterview(result) {
+        if (result.data) {
+            this.interviewFeedback = [...result.data];
+            console.log('Fetched Data:', this.interviewFeedback); // Log fetched data
+        } else if (result.error) {
+            console.error('Error fetching Feedback Interview:', result.error);
+        }
+    }
+
+
 
     handleApplicantClick(event) {
         const applicantId = event.currentTarget.dataset.id;
@@ -27,55 +44,40 @@ export default class InterviewsProcesses extends LightningElement {
         getInterviewDetails({ applicantId })
             .then(result => {
                 this.showInterviewDetails = result;
+
+                const interviewDetails = this.template.querySelector('c-interview-details');
+                if (interviewDetails) {
+                    interviewDetails.interviewData = this.showInterviewDetails;
+                }
             })
             .catch(error => {
                 console.error('Error fetching interview details:', error);
             });
     }
 
+    cancelEditForm() {
+        this.showInterviewDetails = null; // Reset the interview details to close the edit form
+    }
 
-    handleSubmit(event) {
-        event.preventDefault();
-        const fields = event.detail.fields;
-
-        this.template.querySelector('lightning-record-edit-form').submit(fields);
+    handleInterviewUpdated(event) {
+        refreshApex(this.showInterviewDetails);
 
     }
 
 
-    handleSuccess(event) {
-        this.dispatchEvent(
-            new ShowToastEvent({
-                title: 'Success',
-                message: 'Interview updated successfully',
-                variant: 'success',
-            })
-        );
-
+    handleClickAdded(event) {
+        this.showFeedbackForm = true; // Show the Feedback form on button click
+        const interviewFeedback = this.template.querySelector('c-feedback');
+        if (interviewFeedback) {
+            interviewFeedback.feedbackData = this.showInterviewDetails;
+        }
     }
 
-
-    handleError(event) {
-        this.dispatchEvent(
-            new ShowToastEvent({
-                title: 'Error',
-                message: 'Error updating record',
-                variant: 'error',
-            })
-        );
-    }
-
-    handleCancel() {
-        this.showInterviewDetails = null; // Reset to close the form
+    handleCloseForm() {
+        this.showFeedbackForm = false; // Hide the Feedback form
     }
 
 
 }
-
-
-
-
-
-
 
 

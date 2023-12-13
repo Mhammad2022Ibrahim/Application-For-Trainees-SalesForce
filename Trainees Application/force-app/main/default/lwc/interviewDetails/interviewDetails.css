@@ -1,0 +1,21 @@
+.slds-m-top_medium {
+    display: flex;
+    justify-content: space-between;
+}
+
+.interview-details-table {
+    top: 35%;
+    background-color: rgb(88, 171, 176);
+    border: 2px solid #6ba0b8;
+    position: absolute;
+    right: 35%;
+    left: 35%;
+    width: auto;
+    height: auto;
+    overflow: auto;
+    z-index: 1;
+}
+
+.slds-hide {
+    display: none;
+}
