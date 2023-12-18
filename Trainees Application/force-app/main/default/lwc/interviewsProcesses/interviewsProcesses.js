@@ -1,5 +1,5 @@
 // interviewsProcesses.js
-import { LightningElement, wire, track } from 'lwc';
+import { LightningElement, wire, track, api } from 'lwc';
 import getAcceptedInterviewApplicants from '@salesforce/apex/InterviewController.getAcceptedInterviewApplicants';
 import getInterviewDetails from '@salesforce/apex/InterviewController.getInterviewDetails';
 import getFeedbackInterview from '@salesforce/apex/InterviewController.getFeedbackInterview';
@@ -15,25 +15,29 @@ export default class InterviewsProcesses extends LightningElement {
     @track showFeedbackForm = false;
 
     @wire(getAcceptedInterviewApplicants)
-
     wiredAcceptedInterviewApplicants(result) {
         if (result.data) {
             this.acceptedInterviewApplicants = [...result.data];
-            console.log('Fetched Data:', this.acceptedInterviewApplicants); // Log fetched data
+            console.log('Fetched Data:', this.acceptedInterviewApplicants);
         } else if (result.error) {
             console.error('Error fetching Accepted Interview Applicants:', result.error);
         }
     }
 
+    // wiredFeedbackResult a variable to hold the wired getFeedbackInterview result
+    wiredFeedbackResult;
+
     @wire(getFeedbackInterview)
     wiredFeedbackInterview(result) {
+        this.wiredFeedbackResult = result;
         if (result.data) {
             this.interviewFeedback = [...result.data];
-            console.log('Fetched Data:', this.interviewFeedback); // Log fetched data
+            console.log('Fetched Data:', this.interviewFeedback);
         } else if (result.error) {
             console.error('Error fetching Feedback Interview:', result.error);
         }
     }
+
 
 
 
@@ -71,11 +75,19 @@ export default class InterviewsProcesses extends LightningElement {
         if (interviewFeedback) {
             interviewFeedback.feedbackData = this.showInterviewDetails;
         }
+
+    }
+
+    // Handle the custom event dispatched from c-feedback
+    handleFeedbackAdded() {
+        // Refresh the list of interview feedback by calling the Apex method again
+        refreshApex(this.wiredFeedbackResult);
     }
 
     handleCloseForm() {
         this.showFeedbackForm = false; // Hide the Feedback form
     }
+
 
 
 }

@@ -1,47 +1,63 @@
+<!-- interviewDetails.html -->
 <template>
     <div class="interview-details-table slds-size_11-of-12">
-        <lightning-record-edit-form if:true={interviewData} object-api-name="Interview__c" record-id={recordId}
-            onsuccess={handleSuccess} onsubmit={handleSubmit} onerror={handleError}>
 
-            <p><strong>Details Interview</strong></p>
+            <lightning-record-edit-form if:true={interviewData} object-api-name="Interview__c" record-id={recordId}
+                onsuccess={handleSuccess} onsubmit={handleSubmit} onerror={handleError}>
 
-            <table class="slds-table slds-table_bordered slds-max-medium-table_stacked-horizontal">
-                <tbody>
-                    <tr>
-                        <td>
-                            <lightning-input-field field-name="Name" value={interviewData.Name}></lightning-input-field>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <lightning-input-field field-name="Interview_Date__c" value={interviewData.Interview_Date__c}></lightning-input-field>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <lightning-input-field field-name="Applicant__c" value={interviewData.Applicant__c}></lightning-input-field>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <lightning-input-field field-name="Interview_Status__c" value={interviewData.Interview_Status__c}></lightning-input-field>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <lightning-input-field field-name="Interviewer__c" value={interviewData.Interviewer__c}></lightning-input-field>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+                    <!-- Close button -->
+                    <!-- <button class="slds-button slds-button_icon slds-modal__close" title="Close"
+                        onclick={handleClose}>
+                        <lightning-icon icon-name="utility:close"
+                            alternative-text="Close"></lightning-icon>
+                        <span class="slds-assistive-text">Close</span>
+                    </button> -->
+                <p><strong>Details Interview</strong></p>
+
+                <table class="slds-table slds-table_bordered slds-max-medium-table_stacked-horizontal">
+                    <tbody>
+                        <tr>
+                            <td>
+                                <lightning-input-field field-name="Name"
+                                    value={interviewData.Name}></lightning-input-field>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <lightning-input-field field-name="Interview_Date__c"
+                                    value={interviewData.Interview_Date__c}></lightning-input-field>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <lightning-input-field field-name="Applicant__c"
+                                    value={interviewData.Applicant__c}></lightning-input-field>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <lightning-input-field field-name="Interview_Status__c"
+                                    value={interviewData.Interview_Status__c}></lightning-input-field>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <lightning-input-field field-name="Interviewer__c"
+                                    value={interviewData.Interviewer__c}></lightning-input-field>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
 
 
-            <div class="slds-m-top_medium">
-                <lightning-button variant="brand" label="Cancel" type="cancel" onclick={handleCancel}></lightning-button>
-                <!-- <lightning-button variant="brand" label="Reset" type="reset"></lightning-button> -->
-                <lightning-button variant="brand" type="submit" label="Save"></lightning-button>
-            </div>
+                <div class="slds-m-top_medium">
+                    <lightning-button variant="brand" label="Cancel" type="cancel"
+                        onclick={handleCancel}></lightning-button>
+                    <!-- <lightning-button variant="brand" label="Reset" type="reset"></lightning-button> -->
+                    <lightning-button variant="brand" type="submit" label="Save"></lightning-button>
+                </div>
 
-        </lightning-record-edit-form>
-    </div>
+            </lightning-record-edit-form>
+        </div>
+    <!-- </div> -->
 </template>

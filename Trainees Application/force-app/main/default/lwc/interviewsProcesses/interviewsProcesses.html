@@ -1,108 +1,115 @@
 <!-- interviewsProcesses.html -->
 <template>
-    <div>
-        <lightning-card class="interviews-processes slds-text-align_center" title="Interview Processes" icon-name="standard:applicant" style="text-align:center">
+    <div class="slds-grid slds-wrap">
 
-            <!-- Display a table of applicants' interviews -->
-            <table class="slds-table slds-table_bordered slds-max-medium-table_stacked-horizontal">
-                <thead>
-                    <tr>
-                        <td class="title" style="text-align:center;font-weight:bold">Name</td>
-                        <td class="title" style="text-align:center;font-weight:bold">Status Interview</td>
-                    </tr>
-                </thead>
+        <div class="slds-m-bottom_xx-small slds-size_10-of-12">
+            <lightning-card class="interviews-processes slds-text-align_center" title="Interview Processes"
+                icon-name="standard:applicant" style="text-align:center">
 
-                <tbody>
-                    <template for:each={acceptedInterviewApplicants} for:item="applicant">
-                        <tr key={applicant.Id} onclick={handleApplicantClick} data-id={applicant.Id}
-                            class="applicant-item">
-                            <td class="slds-col" style="color:blue;text-align:center">{applicant.Name}</td>
-                            <td class="slds-col" style="color:blue;text-align:center">{applicant.Status__c}</td>
-                        </tr>
-                    </template>
-                </tbody>
-            </table>
-
-            <div>
-                <lightning-layout>
-                    <lightning-layout-item size="11">
-                        <template if:true={showInterviewDetails}>
-                            <div>
-                                <c-interview-details record-id={showInterviewDetails.Id}
-                                    interviewdata={showInterviewDetails} oninterviewupdated={handleInterviewUpdated}>
-                                </c-interview-details>
-                            </div>
-                            <lightning-button variant="destructive" label="Cancel Form"
-                                onclick={cancelEditForm}></lightning-button>
-                        </template>
-                    </lightning-layout-item>
-                </lightning-layout>
-            </div>
-
-        </lightning-card>
-
-        <lightning-layout horizontal-align="center" multiple-rows>
-
-            <lightning-layout-item size="12" small-device-size="3" medium-device-size="3" large-device-size="3">
-                <lightning-card>
-                    <div class="interview-feedback">
-                        <lightning-layout>
-                            <lightning-layout-item size="11">
-                                
-                                <div class="slds-grid slds-gutters">
-                                    <div class="slds-col">
-                                        <h2><strong>Add Feedback</strong></h2>
-                                    </div>
-                                    <div class="slds-col">
-                                        <lightning-button variant="brand" label="+" onclick={handleClickAdded}></lightning-button>
-                                    </div>
+                <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+                    <thead>
+                        <tr class="slds-line-height_reset">
+                            <th class="" scope="col">
+                                <div class="slds-truncate" title="Name" style="text-align:center;font-weight:bold">Name
                                 </div>
-
-                                <!-- Conditional rendering for Feedback form -->
-                                <template if:true={showFeedbackForm}>
-                                    <div class="form-container">
-                                        <c-feedback record-id={recordId}></c-feedback>
-                                    </div>
-                                    <div class="button-container">
-                                        <lightning-button variant="destructive" label="Close" onclick={handleCloseForm}></lightning-button>
-                                    </div>
-                                </template>
-                                
-                            </lightning-layout-item>
-                        </lightning-layout>
-                    </div>
-                </lightning-card>
-            </lightning-layout-item>
-
-            <lightning-layout-item size="12" small-device-size="9" medium-device-size="9" large-device-size="9">
-                <lightning-card class="feedback-interviews-card slds-text-align_center" title="Feedback Interviews"
-                    icon-name="standard:applicant">
-                    <!-- Display a table of applicants' interviews -->
-                    <table class="slds-table slds-table_bordered slds-max-medium-table_stacked-horizontal">
-                        <thead>
-                            <tr>
-                                <th class="title" style="text-align:center;font-weight:bold">Feedback</th>
-                                <th class="title" style="text-align:center;font-weight:bold">Applicant</th>
-                                <th class="title" style="text-align:center;font-weight:bold">Interviewer</th>
+                            </th>
+                            <th class="" scope="col">
+                                <div class="slds-truncate" title="Status Interview"
+                                    style="text-align:center;font-weight:bold">Status Interview</div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <template for:each={acceptedInterviewApplicants} for:item="applicant">
+                            <tr class="slds-hint-parent" key={applicant.Id} onclick={handleApplicantClick}
+                                data-id={applicant.Id}>
+                                <td class="slds-col" style="color:blue;text-align:center">{applicant.Name}</td>
+                                <td class="slds-col" style="color:blue;text-align:center">{applicant.Status__c}</td>
                             </tr>
-                        </thead>
-                        <tbody>
-                            <template for:each={interviewFeedback} for:item="feedbacks">
-                                <tr key={feedbacks.Id} data-id={feedbacks.Id} class="feedback-item">
-                                    <td class="slds-col" style="color:blue;text-align:center">
-                                        {feedbacks.Feedback_Text__c}</td>
-                                    <td class="slds-col" style="color:blue;text-align:center">
-                                        {feedbacks.Applicant__r.Name}</td>
-                                    <td class="slds-col" style="color:blue;text-align:center">
-                                        {feedbacks.Interviewer__r.Name}</td>
-                                </tr>
-                            </template>
-                        </tbody>
-                    </table>
-                </lightning-card>
-            </lightning-layout-item>
+                        </template>
+                    </tbody>
+                </table>
 
-        </lightning-layout>
+                <div>
+                    <lightning-layout>
+                        <lightning-layout-item size="11">
+                            <template if:true={showInterviewDetails}>
+                                <div>
+                                    <c-interview-details record-id={showInterviewDetails.Id}
+                                        interviewdata={showInterviewDetails}
+                                        oninterviewupdated={handleInterviewUpdated}>
+                                    </c-interview-details>
+                                </div>
+                                <lightning-button variant="destructive" label="Cancel Form"
+                                    onclick={cancelEditForm}></lightning-button>
+                            </template>
+                        </lightning-layout-item>
+                    </lightning-layout>
+                </div>
+
+            </lightning-card>
+        </div>
+
+        <div class="slds-m-top_xx-small slds-size_1-of-2">
+
+            <lightning-card>
+                <div class="interview-feedback">
+                    <div class="slds-grid slds-gutters">
+                        <div class="slds-col">
+                            <h2><strong>Add Feedback</strong></h2>
+                        </div>
+                        <div class="slds-col">
+                            <lightning-button variant="brand" label="+" onclick={handleClickAdded}></lightning-button>
+                        </div>
+                    </div>
+
+                    <!-- Conditional rendering for Feedback form -->
+                    <template if:true={showFeedbackForm}>
+                        <div class="form-container">
+                            <c-feedback record-id={recordId} onfeedbackadded={handleFeedbackAdded}></c-feedback>
+                        </div>
+                        <div class="button-container">
+                            <lightning-button variant="destructive" label="Close"
+                                onclick={handleCloseForm}></lightning-button>
+                        </div>
+                    </template>
+
+                </div>
+            </lightning-card>
+        </div>
+
+        <div class="slds-m-top_xx-small slds-size_1-of-2">
+            <lightning-card class="feedback-interviews-card" title="Feedback Interviews" icon-name="standard:applicant">
+                <!-- Display a table of applicants' interviews -->
+                <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_col-bordered"
+                    style="table-layout: fixed;text-overflow: ellipsis;overflow: hidden;">
+
+                    <thead>
+                        <tr>
+                            <th class="title" style="text-align:center;font-weight:bold">Feedback</th>
+                            <th class="title" style="text-align:center;font-weight:bold">Applicant</th>
+                            <th class="title" style="text-align:center;font-weight:bold">Interviewer</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <template for:each={interviewFeedback} for:item="feedbacks">
+                            <tr key={feedbacks.Id} data-id={feedbacks.Id} class="feedback-item">
+                                <td class="td_tab">
+                                    <textarea readonly>
+                                        {feedbacks.Feedback_Text__c}
+                                    </textarea>
+                                </td>
+                                <td class="td_tab">
+                                    {feedbacks.Applicant__r.Name}</td>
+                                <td class="td_tab">
+                                    {feedbacks.Interviewer__r.Name}</td>
+                            </tr>
+                        </template>
+                    </tbody>
+
+                </table>
+            </lightning-card>
+        </div>
 
     </div>
 </template>

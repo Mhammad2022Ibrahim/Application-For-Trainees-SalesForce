@@ -42,4 +42,10 @@ export default class InterviewDetails extends LightningElement {
     }
 
 
+    // handleClose(event) {
+    //     event.preventDefault(); // Prevent default behavior (page refresh)
+    
+    //     // Implement the logic to close the form here, for example:
+    //     this.interviewData = null; // Reset data or close the form in your preferred way
+    // }
 }

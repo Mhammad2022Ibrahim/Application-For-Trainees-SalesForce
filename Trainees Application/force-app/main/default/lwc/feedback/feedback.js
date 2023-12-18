@@ -1,5 +1,5 @@
 // feedback.js
-import { LightningElement, api} from 'lwc';
+import { LightningElement, api } from 'lwc';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 
 export default class Feedback extends LightningElement {
@@ -22,7 +22,12 @@ export default class Feedback extends LightningElement {
             })
         );
 
+        // Emit a custom event to notify the parent component (interviewsProcesses) about the new feedback
+        const successEvent = new CustomEvent('feedbackadded');
+        this.dispatchEvent(successEvent);
+
     }
+
 
 
     handleError(event) {

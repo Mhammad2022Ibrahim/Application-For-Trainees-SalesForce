@@ -1,4 +1,28 @@
 /* CSS file for the component */
 .form-container {
-    margin-bottom: 20px; /* Adjust the margin as needed for the desired space */
+    margin-bottom: 20px;
+    /* Adjust the margin as needed for the desired space */
 }
+
+
+.td_tab {
+    color: blue;
+    text-align: center;
+    white-space: nowrap;
+    /* overflow: scroll; */
+    overflow: hidden;
+    /* text-overflow: ellipsis; */
+    text-overflow: clip;
+}
+
+.slds-m-top_xx-small {
+    margin-top: 20px; 
+    margin-right: 20px;
+}
+
+.slds-size_1-of-2 {
+    width: 48%; /* Adjust the width to leave space for the 20px margin */
+}
+
+
+
