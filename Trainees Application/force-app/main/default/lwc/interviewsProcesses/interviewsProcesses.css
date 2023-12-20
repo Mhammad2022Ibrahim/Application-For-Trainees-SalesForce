@@ -1,7 +1,16 @@
-/* CSS file for the component */
+/* interviewsProcesses.css */
 .form-container {
     margin-bottom: 20px;
-    /* Adjust the margin as needed for the desired space */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10000;  
+    width: auto;
+    height: auto;
+    overflow: auto;
+    max-width: 90%; /* Adjust the percentage as needed */
+    max-height: 90%; /* Adjust the percentage as needed */
 }
 
 
@@ -21,8 +30,45 @@
 }
 
 .slds-size_1-of-2 {
-    width: 48%; /* Adjust the width to leave space for the 20px margin */
+    width: 48%; 
+}
+
+.background-overlay {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50%; /* Cover the entire width of the viewport */
+    height: 50%; /* Cover the entire height of the viewport */
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-start;
+    background-size: cover;
 }
 
 
+.close-button{
+    margin: 10px;
+    padding: 5px;
+    background-color: transparent;
+    border: none;
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.form-container1 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10000;  
+    width: auto;
+    height: auto;
+    overflow: auto;
+    max-width: 90%; /* Adjust the percentage as needed */
+    max-height: 90%; /* Adjust the percentage as needed */
+}
 

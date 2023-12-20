@@ -39,8 +39,6 @@ export default class InterviewsProcesses extends LightningElement {
     }
 
 
-
-
     handleApplicantClick(event) {
         const applicantId = event.currentTarget.dataset.id;
 
@@ -59,22 +57,29 @@ export default class InterviewsProcesses extends LightningElement {
             });
     }
 
-    cancelEditForm() {
-        this.showInterviewDetails = null; // Reset the interview details to close the edit form
-    }
 
     handleInterviewUpdated(event) {
-        refreshApex(this.showInterviewDetails);
 
     }
+
+
+
+
+
+    cancelEditForm() {
+        this.showInterviewDetails = null;
+        // Refresh the list of accepted interview applicants
+        refreshApex(this.wiredAcceptedInterviewApplicants);
+    }
+
 
 
     handleClickAdded(event) {
         this.showFeedbackForm = true; // Show the Feedback form on button click
-        const interviewFeedback = this.template.querySelector('c-feedback');
-        if (interviewFeedback) {
-            interviewFeedback.feedbackData = this.showInterviewDetails;
-        }
+        // const interviewFeedback = this.template.querySelector('c-feedback');
+        // if (interviewFeedback) {
+        //     interviewFeedback.feedbackData = this.showInterviewDetails;
+        // }
 
     }
 

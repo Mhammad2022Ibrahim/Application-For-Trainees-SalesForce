@@ -1,5 +1,7 @@
-import { LightningElement, api,  } from 'lwc';
+// interviewDetails.js
+import { LightningElement, api, } from 'lwc';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
+// import { refreshApex } from '@salesforce/apex';
 
 export default class InterviewDetails extends LightningElement {
     @api interviewData;
@@ -37,15 +39,4 @@ export default class InterviewDetails extends LightningElement {
         );
     }
 
-    handleCancel() {
-        this.interviewData = null; // Reset data
-    }
-
-
-    // handleClose(event) {
-    //     event.preventDefault(); // Prevent default behavior (page refresh)
-    
-    //     // Implement the logic to close the form here, for example:
-    //     this.interviewData = null; // Reset data or close the form in your preferred way
-    // }
 }

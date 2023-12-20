@@ -30,25 +30,25 @@
                     </tbody>
                 </table>
 
-                <div>
-                    <lightning-layout>
-                        <lightning-layout-item size="11">
-                            <template if:true={showInterviewDetails}>
-                                <div>
-                                    <c-interview-details record-id={showInterviewDetails.Id}
-                                        interviewdata={showInterviewDetails}
-                                        oninterviewupdated={handleInterviewUpdated}>
-                                    </c-interview-details>
-                                </div>
-                                <lightning-button variant="destructive" label="Cancel Form"
-                                    onclick={cancelEditForm}></lightning-button>
-                            </template>
-                        </lightning-layout-item>
-                    </lightning-layout>
-                </div>
+
+
+
+                <template if:true={showInterviewDetails}>
+                    <div class="background-overlay">
+                        <button class="close-button" title="Close" onclick={cancelEditForm}>X</button>
+                        <div class="form-container1">
+                            <c-interview-details record-id={showInterviewDetails.Id}
+                                interviewdata={showInterviewDetails}
+                                oninterviewupdated={handleInterviewUpdated}></c-interview-details>
+
+                        </div>
+                    </div>
+                </template>
 
             </lightning-card>
         </div>
+
+
 
         <div class="slds-m-top_xx-small slds-size_1-of-2">
 
