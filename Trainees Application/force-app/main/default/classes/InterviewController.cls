@@ -7,7 +7,7 @@ public with sharing class InterviewController {
 
     @AuraEnabled(cacheable=true)
     public static Interview__c getInterviewDetails(String applicantId) {
-        List<Interview__c> interviews = [SELECT Id, Name, Interview_Date__c, Applicant__c, Interviewer__c, Interview_Status__c 
+        List<Interview__c> interviews = [SELECT Id, Name, Interview_Date__c, Interviewer__c, Interview_Status__c 
         FROM Interview__c WHERE Applicant__c = :applicantId LIMIT 1];
 
         if (!interviews.isEmpty()) {
@@ -24,6 +24,5 @@ public with sharing class InterviewController {
                FROM Feedback__c];
     }
 
-}
 
-
+    }

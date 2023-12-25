@@ -14,11 +14,14 @@ export default class InterviewsProcesses extends LightningElement {
 
     @track showFeedbackForm = false;
 
+    wiredtest;
     @wire(getAcceptedInterviewApplicants)
     wiredAcceptedInterviewApplicants(result) {
+        this.wiredtest = result;
         if (result.data) {
             this.acceptedInterviewApplicants = [...result.data];
             console.log('Fetched Data:', this.acceptedInterviewApplicants);
+            console.log('wiredAcceptedInterviewApplicants: ', result);
         } else if (result.error) {
             console.error('Error fetching Accepted Interview Applicants:', result.error);
         }
@@ -46,11 +49,13 @@ export default class InterviewsProcesses extends LightningElement {
         getInterviewDetails({ applicantId })
             .then(result => {
                 this.showInterviewDetails = result;
+                console.log('Display details in get method:',result);
 
                 const interviewDetails = this.template.querySelector('c-interview-details');
                 if (interviewDetails) {
                     interviewDetails.interviewData = this.showInterviewDetails;
                 }
+
             })
             .catch(error => {
                 console.error('Error fetching interview details:', error);
@@ -58,18 +63,30 @@ export default class InterviewsProcesses extends LightningElement {
     }
 
 
+
+
+    // Handle the custom event dispatched from c-interview-details
     handleInterviewUpdated(event) {
+        const updatedDetails = event.detail.updatedInterviewDetails;
+
+        // Update the component property
+        // this.showInterviewDetails = { ...updatedDetails };
+        this.showInterviewDetails = updatedDetails;
+        console.log('get update: ', updatedDetails);
+
+        // Bind the updated data to form fields
+        const interviewDetailsComponent = this.template.querySelector('c-interview-details');
+        if (interviewDetailsComponent) {
+            interviewDetailsComponent.interviewData = this.showInterviewDetails;
+        }
+
 
     }
 
 
 
-
-
     cancelEditForm() {
         this.showInterviewDetails = null;
-        // Refresh the list of accepted interview applicants
-        refreshApex(this.wiredAcceptedInterviewApplicants);
     }
 
 
@@ -96,5 +113,3 @@ export default class InterviewsProcesses extends LightningElement {
 
 
 }
-
-
