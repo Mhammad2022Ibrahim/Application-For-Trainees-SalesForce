@@ -1,7 +1,7 @@
 <!-- interviewDetails.html -->
 <template>
     <div class="interview-details-table slds-size_11-of-12">
-
+        
         <lightning-record-edit-form if:true={interviewData} object-api-name="Interview__c" record-id={recordId}
             onsuccess={handleSuccess} onsubmit={handleSubmit} onerror={handleError}>
 

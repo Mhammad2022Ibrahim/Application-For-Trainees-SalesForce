@@ -36,6 +36,7 @@
                 <template if:true={showInterviewDetails}>
                     <div class="background-overlay">
                         <button class="close-button" title="Close" onclick={cancelEditForm}>X</button>
+                        <!-- <lightning-button class="slds-var-p-around_x-small" label="Cancel" onclick={closeAction}></lightning-button> -->
                         <div class="form-container1">
                             <c-interview-details record-id={showInterviewDetails.Id}
                                 interviewdata={showInterviewDetails}

@@ -29,17 +29,22 @@ export default class InterviewDetails extends LightningElement {
                 variant: 'success',
             })
         );
+
+        const updatedRecord = event.detail.id;
+        console.log('onsuccess: ', updatedRecord);
+
         // After successful update, dispatch a custom event
         const updatedInterviewDetails = this.submittedFields;
         console.log('update fields: ', updatedInterviewDetails);
         const successEvent = new CustomEvent('interviewupdated', {
-            detail: { updatedInterviewDetails },
+            detail: {
+                updatedInterviewDetails
+            },
         });
         this.dispatchEvent(successEvent);
 
 
     }
-
 
 
     handleError(event) {

@@ -45,24 +45,22 @@ export default class InterviewsProcesses extends LightningElement {
     handleApplicantClick(event) {
         const applicantId = event.currentTarget.dataset.id;
 
-        // Call Apex method to get interview details
-        getInterviewDetails({ applicantId })
+        // Call the wire method to get interview details dynamically
+        getInterviewDetails({ applicantId, cacheKey: new Date().getTime()})
             .then(result => {
                 this.showInterviewDetails = result;
-                console.log('Display details in get method:',result);
+                console.log('Display details in get method:', result);
 
                 const interviewDetails = this.template.querySelector('c-interview-details');
                 if (interviewDetails) {
                     interviewDetails.interviewData = this.showInterviewDetails;
                 }
-
             })
             .catch(error => {
                 console.error('Error fetching interview details:', error);
             });
+
     }
-
-
 
 
     // Handle the custom event dispatched from c-interview-details
@@ -70,8 +68,8 @@ export default class InterviewsProcesses extends LightningElement {
         const updatedDetails = event.detail.updatedInterviewDetails;
 
         // Update the component property
-        // this.showInterviewDetails = { ...updatedDetails };
-        this.showInterviewDetails = updatedDetails;
+        this.showInterviewDetails = { ...updatedDetails };
+        // this.showInterviewDetails = updatedDetails;
         console.log('get update: ', updatedDetails);
 
         // Bind the updated data to form fields
@@ -80,13 +78,15 @@ export default class InterviewsProcesses extends LightningElement {
             interviewDetailsComponent.interviewData = this.showInterviewDetails;
         }
 
-
+        refreshApex(this.wiredtest);
     }
 
 
 
     cancelEditForm() {
         this.showInterviewDetails = null;
+        // Refresh the wired result for interview details
+        return refreshApex(this.wiredtest);
     }
 
 
