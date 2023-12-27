@@ -24,7 +24,7 @@ export default class ApplicationInformation extends LightningElement {
     handleApplicantClick(event) {
         const applicantId = event.currentTarget.dataset.id;
 
-        getApplicantDetails({ applicantId })
+        getApplicantDetails({ applicantId, cacheKey: new Date().getTime()}) // Refresh data by changing the cache key
             .then(result => {
                 this.selectedApplicant = result;
 
@@ -43,6 +43,9 @@ export default class ApplicationInformation extends LightningElement {
         
     }
 
+    closeAction() {
+        this.selectedApplicant = null;
+    }
 
 }
 

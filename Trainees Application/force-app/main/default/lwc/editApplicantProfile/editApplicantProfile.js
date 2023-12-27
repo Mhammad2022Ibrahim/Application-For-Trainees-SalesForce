@@ -40,9 +40,9 @@ export default class EditApplicantProfile extends LightningElement {
         );
     }
 
-    handleCancel() {
-        this.applicantData = null; // Reset to close the form
-    }
+    // handleCancel() {
+    //     this.applicantData = null; // Reset to close the form
+    // }
 
 }
 

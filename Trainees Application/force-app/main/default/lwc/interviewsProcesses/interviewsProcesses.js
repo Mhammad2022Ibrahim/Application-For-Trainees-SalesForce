@@ -1,5 +1,5 @@
 // interviewsProcesses.js
-import { LightningElement, wire, track, api } from 'lwc';
+import { LightningElement, wire, track, } from 'lwc';
 import getAcceptedInterviewApplicants from '@salesforce/apex/InterviewController.getAcceptedInterviewApplicants';
 import getInterviewDetails from '@salesforce/apex/InterviewController.getInterviewDetails';
 import getFeedbackInterview from '@salesforce/apex/InterviewController.getFeedbackInterview';
@@ -20,8 +20,8 @@ export default class InterviewsProcesses extends LightningElement {
         this.wiredtest = result;
         if (result.data) {
             this.acceptedInterviewApplicants = [...result.data];
-            console.log('Fetched Data:', this.acceptedInterviewApplicants);
-            console.log('wiredAcceptedInterviewApplicants: ', result);
+            // console.log('Fetched Data:', this.acceptedInterviewApplicants);
+            // console.log('wiredAcceptedInterviewApplicants: ', result);
         } else if (result.error) {
             console.error('Error fetching Accepted Interview Applicants:', result.error);
         }
@@ -35,7 +35,7 @@ export default class InterviewsProcesses extends LightningElement {
         this.wiredFeedbackResult = result;
         if (result.data) {
             this.interviewFeedback = [...result.data];
-            console.log('Fetched Data:', this.interviewFeedback);
+            // console.log('Fetched Data:', this.interviewFeedback);
         } else if (result.error) {
             console.error('Error fetching Feedback Interview:', result.error);
         }
@@ -46,10 +46,10 @@ export default class InterviewsProcesses extends LightningElement {
         const applicantId = event.currentTarget.dataset.id;
 
         // Call the wire method to get interview details dynamically
-        getInterviewDetails({ applicantId, cacheKey: new Date().getTime()})
+        getInterviewDetails({ applicantId, cacheKey: new Date().getTime()}) // Refresh data by changing the cache key
             .then(result => {
                 this.showInterviewDetails = result;
-                console.log('Display details in get method:', result);
+                // console.log('Display details in get method:', result);
 
                 const interviewDetails = this.template.querySelector('c-interview-details');
                 if (interviewDetails) {
@@ -64,29 +64,29 @@ export default class InterviewsProcesses extends LightningElement {
 
 
     // Handle the custom event dispatched from c-interview-details
-    handleInterviewUpdated(event) {
-        const updatedDetails = event.detail.updatedInterviewDetails;
+    // handleInterviewUpdated(event) {
+    //     const updatedDetails = event.detail.updatedInterviewDetails;
 
-        // Update the component property
-        this.showInterviewDetails = { ...updatedDetails };
-        // this.showInterviewDetails = updatedDetails;
-        console.log('get update: ', updatedDetails);
+    //     // Update the component property
+    //     this.showInterviewDetails = { ...updatedDetails };
+    //     // this.showInterviewDetails = updatedDetails;
+    //     console.log('get update: ', updatedDetails);
 
-        // Bind the updated data to form fields
-        const interviewDetailsComponent = this.template.querySelector('c-interview-details');
-        if (interviewDetailsComponent) {
-            interviewDetailsComponent.interviewData = this.showInterviewDetails;
-        }
+    //     // Bind the updated data to form fields
+    //     const interviewDetailsComponent = this.template.querySelector('c-interview-details');
+    //     if (interviewDetailsComponent) {
+    //         interviewDetailsComponent.interviewData = this.showInterviewDetails;
+    //     }
 
-        refreshApex(this.wiredtest);
-    }
+    //     // refreshApex(this.wiredtest);
+    // }
 
 
 
     cancelEditForm() {
         this.showInterviewDetails = null;
         // Refresh the wired result for interview details
-        return refreshApex(this.wiredtest);
+        // return refreshApex(this.wiredtest);
     }
 
 

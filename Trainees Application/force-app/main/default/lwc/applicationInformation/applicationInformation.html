@@ -18,6 +18,10 @@
             <!-- Display content for the selected applicant -->
             <template if:true={selectedApplicant}>
                 <div role="tabpanel" class="slds-vertical-tabs__content slds-show">
+                    <div class="slds-var-p-around_x-small button-container">
+                        <button class="slds-button slds-button_destructive" onclick={closeAction}>X</button>
+                    </div>
+                    
                     <c-edit-applicant-profile record-id={selectedApplicant.Id} applicantdata={selectedApplicant}
                         onapplicantupdated={handleApplicantUpdated}>
                     </c-edit-applicant-profile>

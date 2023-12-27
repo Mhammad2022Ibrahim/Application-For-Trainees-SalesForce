@@ -1,5 +1,5 @@
 .slds-m-top_medium {
     display: flex;
-    justify-content: space-between;
-
+    /* justify-content: space-between; */
+    justify-content: flex-end;
 }

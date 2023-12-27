@@ -1,5 +1,5 @@
 // interviewDetails.js
-import { LightningElement, api, wire } from 'lwc';
+import { LightningElement, api, } from 'lwc';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 
 export default class InterviewDetails extends LightningElement {
@@ -11,9 +11,9 @@ export default class InterviewDetails extends LightningElement {
     handleSubmit(event) {
         event.preventDefault();
         const fields = event.detail.fields;
-        console.log('fields:', fields);
+        // console.log('fields:', fields);
 
-        this.submittedFields = fields; // Store submitted data
+        // this.submittedFields = fields; // Store submitted data
 
         this.template.querySelector('lightning-record-edit-form').submit(fields);
 
@@ -30,18 +30,18 @@ export default class InterviewDetails extends LightningElement {
             })
         );
 
-        const updatedRecord = event.detail.id;
-        console.log('onsuccess: ', updatedRecord);
+        // const updatedRecord = event.detail.id;
+        // console.log('onsuccess: ', updatedRecord);
 
         // After successful update, dispatch a custom event
-        const updatedInterviewDetails = this.submittedFields;
-        console.log('update fields: ', updatedInterviewDetails);
-        const successEvent = new CustomEvent('interviewupdated', {
-            detail: {
-                updatedInterviewDetails
-            },
-        });
-        this.dispatchEvent(successEvent);
+        // const updatedInterviewDetails = this.submittedFields;
+        // console.log('update fields: ', updatedInterviewDetails);
+        // const successEvent = new CustomEvent('interviewupdated', {
+        //     detail: {
+        //         updatedInterviewDetails
+        //     },
+        // });
+        // this.dispatchEvent(successEvent);
 
 
     }

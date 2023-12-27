@@ -1,4 +1,4 @@
-.title{
+.title {
     font-size: 18px;
     line-height: 2.5;
     font-weight: bold;
@@ -48,4 +48,16 @@
 
 .slds-vertical-tabs .slds-vertical-tabs__content.slds-show {
     padding: 20px;
+}
+
+
+.button-container {
+    display: flex;
+    justify-content: flex-end;
+    
+}
+
+.slds-button_destructive {
+    font-size: 20px; /* Adjust the font size as needed */
+    padding: 10px 20px; /* Adjust padding for height and width */
 }

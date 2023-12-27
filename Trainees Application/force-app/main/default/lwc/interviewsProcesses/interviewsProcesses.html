@@ -35,12 +35,12 @@
 
                 <template if:true={showInterviewDetails}>
                     <div class="background-overlay">
-                        <button class="close-button" title="Close" onclick={cancelEditForm}>X</button>
+                        <button class="slds-button slds-button_destructive" title="Close" onclick={cancelEditForm}>X</button>
                         <!-- <lightning-button class="slds-var-p-around_x-small" label="Cancel" onclick={closeAction}></lightning-button> -->
                         <div class="form-container1">
                             <c-interview-details record-id={showInterviewDetails.Id}
                                 interviewdata={showInterviewDetails}
-                                oninterviewupdated={handleInterviewUpdated}></c-interview-details>
+                                ></c-interview-details>
 
                         </div>
                     </div>
@@ -69,10 +69,11 @@
                         <div class="form-container">
                             <c-feedback record-id={recordId} onfeedbackadded={handleFeedbackAdded}></c-feedback>
                         </div>
-                        <div class="button-container">
+                        <!-- <div class="button-container">
                             <lightning-button variant="destructive" label="Close"
                                 onclick={handleCloseForm}></lightning-button>
-                        </div>
+                        </div> -->
+                        <button class="slds-button slds-button_destructive" title="Close" onclick={handleCloseForm}>X</button>
                     </template>
 
                 </div>
