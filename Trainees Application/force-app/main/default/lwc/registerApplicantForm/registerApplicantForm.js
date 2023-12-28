@@ -14,7 +14,7 @@ export default class RegistrationForm extends LightningElement {
     @track error;
 
     @track applicantRecord = {
-        [name.fieldApiName] : '',
+        [name.fieldApiName]: '',
         [phone.fieldApiName]: '',
         [email.fieldApiName]: '',
         [address.fieldApiName]: '',
@@ -31,6 +31,14 @@ export default class RegistrationForm extends LightningElement {
         { label: 'Doctorate Degree', value: 'Doctorate Degree' }
     ];
 
+    // @track cvFile;
+
+    // handleFileChange(event) {
+    //     // this.cvFile = event.target.files[0];
+    //     this.cvFile = event.target.files;
+    // }
+
+
     handleNameChange(event) {
         this.applicantRecord[name.fieldApiName] = event.target.value;
     }
@@ -45,14 +53,14 @@ export default class RegistrationForm extends LightningElement {
 
     handleAddressChange(event) {
         this.applicantRecord[address.fieldApiName] = event.target.value;
-    }  
-    
-    
+    }
+
+
     handleEducationChange(event) {
         this.applicantRecord[education.fieldApiName] = event.detail.value;
     }
-    
-    
+
+
     handleCertificationsChange(event) {
         this.applicantRecord[certificate.fieldApiName] = event.target.value;
     }
@@ -65,17 +73,22 @@ export default class RegistrationForm extends LightningElement {
     handleSave() {
         // Check if required fields are filled
         if (!this.applicantRecord[name.fieldApiName] ||
-            !this.applicantRecord[email.fieldApiName]||
+            !this.applicantRecord[email.fieldApiName] ||
             !this.applicantRecord[education.fieldApiName]) {
-                this.error = 'Please fill in all required fields.';
-                return;
-            }
+            this.error = 'Please fill in all required fields.';
+            return;
+        }
+
+        // Prepare data for the server, including the file
+        // const formData = new FormData();
+        // formData.append('applicant', JSON.stringify(this.applicantRecord));
+        // formData.append('cvFile', this.cvFile);
 
         saveApplicant({ applicant: this.applicantRecord })
             .then(result => {
                 // Clear all fields in traineeRecord
                 this.applicantRecord = {
-                    [name.fieldApiName] : '',
+                    [name.fieldApiName]: '',
                     [phone.fieldApiName]: '',
                     [email.fieldApiName]: '',
                     [address.fieldApiName]: '',
@@ -88,7 +101,7 @@ export default class RegistrationForm extends LightningElement {
                 this.error = '';
 
                 window.console.log('result ===> ' + JSON.stringify(result));
-    
+
                 // Show success message
                 this.dispatchEvent(
                     new ShowToastEvent({
@@ -102,10 +115,10 @@ export default class RegistrationForm extends LightningElement {
                 this.error = error.message;
                 console.error('Error saving applicant:', error);
             });
-    }  
-    
-    
-    
+    }
+
+
+
 
 }
 

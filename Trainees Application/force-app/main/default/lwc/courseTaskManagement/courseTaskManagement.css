@@ -1,0 +1,38 @@
+/* Add this to your CSS file or style tag in the component */
+.custom-col {
+    background-color: #f0f0f0; /* Set your desired background color */
+}
+
+:host {
+    display: block;
+    border: 1px solid #ccc;
+    padding: 20px;
+    background-color: #f5f5f5;
+}
+
+.slds-text-heading_medium{
+    padding-bottom: 8px;
+    padding-left: 6px;
+}
+
+.button {
+    /* Add your default button styles here */
+    padding: 10px;
+    background-color: #bac7d0;
+    color: #000000f9;
+    border: 2px solid #bac7d0;;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.button:hover {
+    /* Add styles for the hover state here */
+    background-color: #2f88c8;
+}
+
+.button:focus {
+    /* Add styles for the focus state here */
+    outline: none; /* Remove the default focus outline */
+    box-shadow: 0 0 5px #ba6262; 
+    /* Add a custom focus style, if needed */
+}
