@@ -9,6 +9,7 @@ import education from '@salesforce/schema/Applicant_Profile__c.Educational_Backg
 import certificate from '@salesforce/schema/Applicant_Profile__c.Certifications__c';
 import skills from '@salesforce/schema/Applicant_Profile__c.Skills__c';
 
+import uploadFile from '@salesforce/apex/UploadFilesController.uploadFile';
 
 export default class RegistrationForm extends LightningElement {
     @track error;
@@ -31,12 +32,7 @@ export default class RegistrationForm extends LightningElement {
         { label: 'Doctorate Degree', value: 'Doctorate Degree' }
     ];
 
-    // @track cvFile;
 
-    // handleFileChange(event) {
-    //     // this.cvFile = event.target.files[0];
-    //     this.cvFile = event.target.files;
-    // }
 
 
     handleNameChange(event) {
@@ -79,11 +75,6 @@ export default class RegistrationForm extends LightningElement {
             return;
         }
 
-        // Prepare data for the server, including the file
-        // const formData = new FormData();
-        // formData.append('applicant', JSON.stringify(this.applicantRecord));
-        // formData.append('cvFile', this.cvFile);
-
         saveApplicant({ applicant: this.applicantRecord })
             .then(result => {
                 // Clear all fields in traineeRecord
@@ -96,6 +87,7 @@ export default class RegistrationForm extends LightningElement {
                     [certificate.fieldApiName]: '',
                     [skills.fieldApiName]: ''
                 };
+
 
                 // Reset error
                 this.error = '';
@@ -115,6 +107,14 @@ export default class RegistrationForm extends LightningElement {
                 this.error = error.message;
                 console.error('Error saving applicant:', error);
             });
+    }
+
+    toast(title) {
+        const toastEvent = new ShowToastEvent({
+            title,
+            variant: "success"
+        });
+        this.dispatchEvent(toastEvent)
     }
 
 

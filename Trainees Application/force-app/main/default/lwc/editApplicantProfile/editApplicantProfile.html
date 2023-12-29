@@ -61,11 +61,30 @@
                             </td>
                         </tr>
 
+                        <!-- Upload CV -->
+                        <th><strong>Upload CV</strong></th>
+                        <tr>
+                            <td>
+                                <!-- <c-upload-files record-id={recordId}></c-upload-files> -->
+                                
+                                <div class="slds-m-around_medium">
+                                    <lightning-input type="file" 
+                                    accept=".xlsx, .xls, .csv, .png, .doc, .docx, .pdf"
+                                    label="Attachment" onchange={openfileUpload}></lightning-input>
+                                </div>
+                                <template if:true={fileData}>
+                                    <p>{fileData.filename}</p>
+                                </template>
+
+                                <lightning-input-field field-name="Cv_Uploaded__c"
+                                    value={applicantData.Cv_Uploaded__c}></lightning-input-field>
+                            </td>
+                        </tr>
+
                     </tbody>
                 </table>
 
                 <div class="slds-m-top_medium slds-grid">
-                    <!-- <lightning-button variant="neutral" type="button" label="Cancel" onclick={handleCancel}></lightning-button> -->
                     <lightning-button variant="brand" type="submit" label="Save"></lightning-button>
                 </div>
 
