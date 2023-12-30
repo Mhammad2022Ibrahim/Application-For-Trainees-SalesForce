@@ -72,4 +72,13 @@ public with sharing class UploadFilesController {
        return null;
      }
    }
+
+   @AuraEnabled(cacheable=true)
+   public static String getCvName(String recordId) {
+       List<ContentDocumentLink> cdLinkList = [SELECT ContentDocument.Title FROM ContentDocumentLink WHERE LinkedEntityId = :recordId LIMIT 1];
+       return cdLinkList.isEmpty() ? null : cdLinkList[0].ContentDocument.Title;
+   }
+   
+
+
 }

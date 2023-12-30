@@ -1,12 +1,28 @@
-import { LightningElement, api } from 'lwc';
+import { LightningElement, api, wire } from 'lwc';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import uploadFile from '@salesforce/apex/UploadFilesController.uploadFile';
+import getCvName from '@salesforce/apex/UploadFilesController.getCvName';
 
 export default class EditApplicantProfile extends LightningElement {
 
     @api applicantData;
     @api recordId;
-    fileData
+    fileData;
+
+
+
+    // @wire(getCvName, { recordId: '$recordId' })
+    // wiredCvName({ error, data }) {
+    //     if (data && data.Cv_Uploaded__c) {
+    //         this.applicantData.Cv_Uploaded__c = data.Cv_Uploaded__c;
+    //         console.log('Data:', data);
+    //         console.log('Cv_Uploaded__c:', this.applicantData.Cv_Uploaded__c);
+    //     }
+    //     else if (error) {
+    //         console.error('Error fetching CV name:', error);
+    //     }
+    // }
+
 
     openfileUpload(event) {
         const file = event.target.files[0]
@@ -18,10 +34,13 @@ export default class EditApplicantProfile extends LightningElement {
                 'base64': base64,
                 'recordId': this.recordId
             }
-            console.log(this.fileData)
+            console.log(this.fileData);
         }
-        reader.readAsDataURL(file)
+        reader.readAsDataURL(file);
     }
+
+    
+    
 
     // handleSubmit(event) {
     //     event.preventDefault();
@@ -42,40 +61,6 @@ export default class EditApplicantProfile extends LightningElement {
     }
 
 
-    // handleSubmit(event) {
-    //     event.preventDefault();
-
-    //     // Ensure there's fileData available
-    //     if (this.fileData) {
-    //         const { base64, filename, recordId } = this.fileData;
-
-    //         // Call a function (e.g., uploadFile) to upload the file to Salesforce
-    //         uploadFile({ base64, filename, recordId }).then(result => {
-    //             // Once file is uploaded successfully, proceed to submit form fields
-
-    //             // Access form fields
-    //             const fields = event.detail.fields;
-    //             console.log('Fileds for Submit: ', fields);
-    //             console.log('CV ID: ', result);
-
-    //             // Submit the form fields
-    //             this.template.querySelector('lightning-record-edit-form').submit(fields);
-
-    //             // Display success message
-    //             let title = `${filename} uploaded successfully!!`;
-    //             this.toast(title);
-    //         }).catch(error => {
-    //             // Handle any error that might occur during file upload
-    //             console.error('Error uploading file:', error);
-    //             this.toast('Error uploading file', 'error');
-    //         });
-    //     } else {
-    //         // If there's no fileData available, simply submit the form fields
-    //         const fields = event.detail.fields;
-    //         this.template.querySelector('lightning-record-edit-form').submit(fields);
-    //     }
-    // }
-
     // Inside the handleSubmit method in EditApplicantProfile component
     handleSubmit(event) {
         event.preventDefault();
@@ -86,7 +71,9 @@ export default class EditApplicantProfile extends LightningElement {
             uploadFile({ base64, filename, recordId })
                 .then(result => {
                     const fields = event.detail.fields;
-                    // fields.Cv_Uploaded__c = filename; // Set the Cv_Uploaded__c field with the file name
+
+                    fields.Cv_Uploaded__c = filename; // Set the Cv_Uploaded__c field with the file name
+
                     console.log('Fileds for Submit: ', fields);
                     console.log('CV ID: ', result);
                     console.log('CV Name: ', filename);
