@@ -65,16 +65,18 @@
                         <th><strong>Upload CV</strong></th>
                         <tr>
                             <td>
-                                
-                                <div class="slds-m-around_medium">
-                                    <lightning-input type="file" 
-                                    accept=".xlsx, .xls, .csv, .png, .doc, .docx, .pdf"
-                                    label="Attachment" onchange={openfileUpload}></lightning-input>
-                                </div>
 
+                                <div class="slds-m-around_medium">
+
+
+                                    <lightning-input type="file" accept=".png, .doc, .pdf, .docx"
+                                        label="Upload Your CV her:" onchange={openfileUpload}></lightning-input>
                                     <template if:true={fileData}>
                                         <p>{fileData.filename}</p>
                                     </template>
+                                </div>
+
+
 
                                 <lightning-input-field field-name="Cv_Uploaded__c"
                                     value={applicantData.Cv_Uploaded__c}></lightning-input-field>

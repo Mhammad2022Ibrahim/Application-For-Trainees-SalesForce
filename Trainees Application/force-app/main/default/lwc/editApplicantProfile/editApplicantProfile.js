@@ -1,58 +1,29 @@
-import { LightningElement, api, wire } from 'lwc';
+import { LightningElement, api, wire, track } from 'lwc';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import uploadFile from '@salesforce/apex/UploadFilesController.uploadFile';
-import getCvName from '@salesforce/apex/UploadFilesController.getCvName';
 
 export default class EditApplicantProfile extends LightningElement {
 
     @api applicantData;
     @api recordId;
-    fileData;
-
-
-
-    // @wire(getCvName, { recordId: '$recordId' })
-    // wiredCvName({ error, data }) {
-    //     if (data && data.Cv_Uploaded__c) {
-    //         this.applicantData.Cv_Uploaded__c = data.Cv_Uploaded__c;
-    //         console.log('Data:', data);
-    //         console.log('Cv_Uploaded__c:', this.applicantData.Cv_Uploaded__c);
-    //     }
-    //     else if (error) {
-    //         console.error('Error fetching CV name:', error);
-    //     }
-    // }
-
+    @track fileData;
 
     openfileUpload(event) {
-        const file = event.target.files[0]
-        var reader = new FileReader()
+        const file = event.target.files[0];
+        var reader = new FileReader();
         reader.onload = () => {
-            var base64 = reader.result.split(',')[1]
+            var base64 = reader.result.split(',')[1];
             this.fileData = {
                 'filename': file.name,
                 'base64': base64,
                 'recordId': this.recordId
-            }
+            };
             console.log(this.fileData);
-        }
+        };
         reader.readAsDataURL(file);
     }
 
-    
-    
-
-    // handleSubmit(event) {
-    //     event.preventDefault();
-    //     const fields = event.detail.fields;
-    //     console.log('fields:', fields);
-
-
-    //     this.template.querySelector('lightning-record-edit-form').submit(fields);
-    // }
-
-    // Define the toast function
-    toast(title, variant) {
+    toastFunction(title, variant) {
         const toastEvent = new ShowToastEvent({
             title: title,
             variant: variant
@@ -61,7 +32,6 @@ export default class EditApplicantProfile extends LightningElement {
     }
 
 
-    // Inside the handleSubmit method in EditApplicantProfile component
     handleSubmit(event) {
         event.preventDefault();
 
@@ -74,26 +44,26 @@ export default class EditApplicantProfile extends LightningElement {
 
                     fields.Cv_Uploaded__c = filename; // Set the Cv_Uploaded__c field with the file name
 
-                    console.log('Fileds for Submit: ', fields);
+                    // Reset the fileData property after successful submission
+                    this.fileData = null; // or this.fileData = {};
+
+                    console.log('Fields for Submit: ', fields);
                     console.log('CV ID: ', result);
                     console.log('CV Name: ', filename);
 
                     this.template.querySelector('lightning-record-edit-form').submit(fields);
                     let title = `${filename} uploaded successfully!!`;
-                    this.toast(title);
+                    this.toastFunction(title);
                 })
                 .catch(error => {
                     console.error('Error uploading file:', error);
-                    this.toast('Error uploading file', 'error');
+                    this.toastFunction('Error uploading file', 'error');
                 });
         } else {
             const fields = event.detail.fields;
             this.template.querySelector('lightning-record-edit-form').submit(fields);
         }
     }
-
-
-
 
 
     handleSuccess(event) {
@@ -124,6 +94,4 @@ export default class EditApplicantProfile extends LightningElement {
 
 
 }
-
-
 
