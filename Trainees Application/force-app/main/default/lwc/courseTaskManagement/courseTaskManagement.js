@@ -1,10 +1,15 @@
-import { LightningElement } from 'lwc';
+import { LightningElement, track, wire } from 'lwc';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
+
+import getTrainingProgress from '@salesforce/apex/ManagementController.getTrainingProgress';
+
+import { refreshApex } from '@salesforce/apex';
 
 import COURSE_OBJECT from "@salesforce/schema/Progress_Course__c"; // import object
 import COURSE_NAME from "@salesforce/schema/Progress_Course__c.Name"; // import fields
 import COURSE from "@salesforce/schema/Progress_Course__c.Course__c";
 import TRAINEE from "@salesforce/schema/Progress_Course__c.Trainee__c";
+import STAUTS1 from "@salesforce/schema/Progress_Course__c.Status__c";
 import START_COURSE from "@salesforce/schema/Progress_Course__c.Started_Date__c";
 import COMPLETE_COURSE from "@salesforce/schema/Progress_Course__c.Completed_Date__c";
 
@@ -22,13 +27,29 @@ import TaskAssignment from 'c/taskAssignment';
 
 export default class CourseTaskManagement extends LightningElement {
 
+  @track trainees;
+  wiredtest;
+  @wire(getTrainingProgress)
+  wiredTrainees(result) {
+    this.wiredtest = result;
+    if (result.data) {
+      this.trainees = [...result.data];
+      console.log('Fetched Data:', this.trainees);
+      console.log('wiredTrainees: ', result);
+    } else if (result.error) {
+      console.error('Error fetching Training Progress:', result.error);
+    }
+  }
+
+
   courseObject = COURSE_OBJECT; // object type
   courseFields = [
     COURSE_NAME,
     COURSE,
+    STAUTS1,
+    TRAINEE,
     START_COURSE,
     COMPLETE_COURSE,
-    TRAINEE,
   ]; // fields to be showin in form
 
   taskObject = TASK_OBJECT; // object type
@@ -62,15 +83,17 @@ export default class CourseTaskManagement extends LightningElement {
     this.dispatchEvent(evt);
   }
 
-  async showTask(){
+  async showTask() {
     const recordId = await TaskAssignment.open({
-        size: 'small',
-        taskFields: this.taskFields
+      size: 'small',
+      taskFields: this.taskFields
     });
 
-    if(recordId){
-        await this.showSuccessTask(recordId);
+    if (recordId) {
+      await this.showSuccessTask(recordId);
     }
+    //refresh the list of training Progress
+    refreshApex(this.wiredtest);
   }
 
   async showSuccessTask(recordId) {

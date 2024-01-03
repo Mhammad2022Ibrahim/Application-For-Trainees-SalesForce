@@ -1,6 +1,7 @@
 <!-- courseTaskManagement.html -->
 <template>
 
+    <div class="slds-m-bottom_small">
     <div class="slds-grid slds-gutters">
         <div class="slds-col slds-p-horizontal_medium custom-col">
             <h2 class="slds-text-heading_medium slds-text-color_default custom-heading">Assign Courses To Trainees</h2>
@@ -12,5 +13,60 @@
             <button class="button" onclick={showTask}>New Task</button>
         </div>
     </div>
+</div>
+
+    <div class="slds-m-bottom_xx-small slds-size_10-of-12">
+        <lightning-card class="interviews-processes slds-text-align_center" title="Training Progress"
+            icon-name="standard:trainee" style="text-align:center">
+
+            <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+                <thead>
+                    <tr class="slds-line-height_reset">
+                        <th class="" scope="col">
+                            <div class="slds-truncate" title="Name" style="text-align:center;font-weight:bold">Trainee
+                                Name
+                            </div>
+                        </th>
+                        <!-- <th class="" scope="col">
+                            <div class="slds-truncate" title="Course Name"
+                                style="text-align:center;font-weight:bold">Course Name</div>
+                        </th>
+                        <th class="" scope="col">
+                            <div class="slds-truncate" title="Status Course"
+                                style="text-align:center;font-weight:bold">Status Course</div>
+                        </th> -->
+                        <th class="" scope="col">
+                            <div class="slds-truncate" title="Task Name" style="text-align:center;font-weight:bold">Task
+                                Name</div>
+                        </th>
+                        <th class="" scope="col">
+                            <div class="slds-truncate" title="Task Status" style="text-align:center;font-weight:bold">
+                                Task Status</div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <template for:each={trainees} for:item="trainee">
+                        <tr class="slds-hint-parent" key={trainee.Id} onclick={handleTraineeClick} data-id={trainee.Id}>
+                            <td class="slds-col" style="color:blue;text-align:center">{trainee.Trainee__r.Name}</td>
+                            <!-- <td class="slds-col" style="color:blue;text-align:center">{trainee.Course__r.Name}</td>
+                            <td class="slds-col" style="color:blue;text-align:center">{trainee.Course__r.Status__c}</td> -->
+                            <td class="slds-col" style="color:blue;text-align:center">{trainee.Task_Assignment__r.Name}
+                            </td>
+                            <td class="slds-col" style="color:blue;text-align:center">
+                                {trainee.Task_Assignment__r.Status__c}</td>
+                        </tr>
+                    </template>
+                </tbody>
+            </table>
+
+
+        </lightning-card>
+    </div>
+
+
+
+
+
 
 </template>
